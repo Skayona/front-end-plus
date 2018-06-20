@@ -11,7 +11,7 @@ class ViewController {
     let item = document.createElement('li');
     item.className = className;
     item.innerHTML = this.generateCard();
-    return container.appendChild(item);
+    container.appendChild(item);
   }
 }
 
