@@ -1,26 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>l1_hw2 - Metelova Kateryna</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    h1, h2 {
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .users-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+      grid-gap: 10px;
+      justify-content: center;
+      margin: 0 auto 40px;
+      padding: 0;
+      max-width: 1400px;
+      list-style-type: none;
+    }
+
+    .users-list__item {
+      padding: 20px;
+      border: 1px solid;
+    }
+
+    .users-list__item p {
+      display: inline-flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .users-list__item p:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    .users-list__item p span {
+      margin-left: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+  <script src="./script.js"></script>
 </head>
+
 <body>
   <h1>All Users</h1>
-  <ul id="users" class="users-list">
 
-  </ul>
-
-<style>
- .users-list {
-
- }
-
- .users-list__item {
-
- }
-</style>
-<script src="./script.js"></script>
 </body>
+
 </html>
