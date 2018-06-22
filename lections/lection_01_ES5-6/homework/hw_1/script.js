@@ -21,7 +21,7 @@ let res = [];
 arr.sort((a, b) => a.value - b.value)
     .forEach(e => {
       let num = e.value;
-      if (num <= 0) return;
+      if (num <= 1) return;
       for(let i = 2; i < num; i++) {
         if (num % i == 0) return;
       }
