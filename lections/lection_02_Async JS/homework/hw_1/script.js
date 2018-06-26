@@ -1,31 +1,70 @@
 function runAsyncAll(list, async) {
   if (async) {
     Promise
-      .all(list)
-      .then(results => console.log('async:', results))
+      .all(list.map(item => item()))
+      .then(result => console.log('async', result))
     return;
   }
+
+  Promise
+    .resolve(list)
+    .then(async (list) => {
+      let result = [];
+      for (let item of list) {
+        await item().then(res => result.push(res));
+      }
+      console.log('sync', result)
+    })
 }
 
-function asyncFunction(count, time) {
-  let promise = new Promise((resolve)=>{
+
+const f1 = () => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(`${count}: ${time}`);
-    }, time);
+      // console.log(`f1: 1200`);
+      resolve(`f1: 1200`);
+    }, 1200);
   })
+}
 
-  return promise.then((result) => result);
+const f2 = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // console.log(`f2: 300`);
+      resolve(`f2: 300`);
+    }, 300);
+  })
+}
+
+const f3 = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // console.log(`f3: 1300`);
+      resolve(`f3: 1300`);
+    }, 1300);
+  })
+}
+
+const f4 = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // console.log(`f4: 600`);
+      resolve(`f4: 600`);
+    }, 600);
+  })
+}
+
+const f5 = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // console.log(`f5: 2500`);
+      resolve(`f5: 2500`);
+    }, 2500);
+  })
 }
 
 
-
-let list = [
-  asyncFunction('#1', 500),
-  asyncFunction('#2', 200),
-  asyncFunction('#3', 400),
-  asyncFunction('#4', 1200),
-  asyncFunction('#5', 900)
-];
+let list = [f1, f2, f3, f4, f5];
 
 runAsyncAll(list, true);
 runAsyncAll(list, false);
