@@ -40,7 +40,8 @@ body {
 
 .repos-list > li {
   padding: 15px;
-  box-shadow: 0 0 0 1px #b2b2b2;
+  /* box-shadow: 0 0 0 1px #b2b2b2; */
+  background: #f0f0f0;
 }
 
 
