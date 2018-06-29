@@ -12,19 +12,19 @@ body {
   padding: 0 15px;
   font-family: sans-serif;
 }
-.repos-header {
+.section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
 }
 
-.repos-header h1 {
+.section-header h1 {
   text-transform: uppercase;
   margin: 0;
 }
 
-.repos-header img {
+.section-header img {
   width: 80px;
   height: 80px;
   background: rgba(0, 0, 0, 0.3);
@@ -61,6 +61,7 @@ body {
   margin-bottom: 4px;
   padding: 4px 8px;
   border-radius: 20px;
+  font-size: 0.75em;
   background: #8462d6;
   color: #ffffff;
 }

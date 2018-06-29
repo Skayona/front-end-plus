@@ -1,83 +1,67 @@
-class Response {
+class ViewController {
   constructor(url) {
     this.url = url;
   }
 
-  getData(url = this.url) {
+  getData(url) {
     return fetch(url)
       .then(response => response.json())
       .then(data => data)
       .catch(error => console.error(error))
   }
-}
 
-class ViewController {
-  constructor(url){
-    this.page = (new Response(url)).getData();
-    this.title = this.page.then(data => data.name);
-    this.logo = this.page.then(data => data.avatar_url);
-    this.repos = this.page.then(data => (new Response(data.repos_url)).getData());
-    this.header = document.querySelector('#repos-header');
-    this.list = document.querySelector('#repos-list')
+  generateTitle(title, appendTo) {
+    const TITLE = document.createElement('h1');
+    TITLE.innerHTML = title;
+    appendTo.appendChild(TITLE);
   }
 
-  generateTitle(title = this.title) {
-    return title
-      .then(title => {
-        const TITLE = document.createElement('h1');
-        TITLE.innerHTML = title;
-        this.header.appendChild(TITLE);
-      })
+  generateLogo(logo, appendTo) {
+    const IMAGE = new Image();
+    IMAGE.src = logo;
+    IMAGE.alt = 'Logo';
+    appendTo.appendChild(IMAGE);
   }
 
-  generateLogo(logo = this.logo) {
-    logo
-      .then(img => {
-        const IMAGE = new Image();
-        IMAGE.src = img;
-        IMAGE.alt = 'Logo';
-        this.header.appendChild(IMAGE);
-      })
+  generateReposList(repos, appendTo) {
+    this.getData(repos).then(repos => {
+      for (let repo of repos) {
+        const REPO = document.createElement('li');
+        REPO.innerHTML = `
+        <p><strong>Repository name</strong>: ${repo.name}</p>
+        <p><strong>Default branch</strong>: ${repo.default_branch}</p>
+        <p><strong>Last update</strong>: ${(new Date(repo.updated_at).toLocaleString('uk'))}</p>
+      `;
+        this.generateLanguages(repo.languages_url, REPO);
+        appendTo.appendChild(REPO);
+      }
+    })
   }
 
-  generateLanguages(repo, languages) {
-    const LANGUAGE_LIST = document.createElement('ul');
-    LANGUAGE_LIST.className = 'language-list';
-    (new Response(languages))
-      .getData()
-      .then(languages => {
-        for (let language in languages) {
-          const LANGUAGE = document.createElement('li');
-          LANGUAGE.innerText = language;
-          LANGUAGE_LIST.appendChild(LANGUAGE);
-        }
-        repo.appendChild(LANGUAGE_LIST);
-      })
-  }
-
-  generateReposList(repos = this.repos) {
-    repos
-      .then(repos => {
-        for (let repo of repos) {
-          const REPO = document.createElement('li');
-          REPO.innerHTML = `
-            <p><strong>Repository name</strong>: ${repo.name}</p>
-            <p><strong>Default branch</strong>: ${repo.default_branch}</p>
-            <p><strong>Last update</strong>: ${(new Date(repo.updated_at).toLocaleString('uk'))}</p>
-          `;
-          this.generateLanguages(REPO, repo.languages_url);
-          this.list.appendChild(REPO);
-        }
-
-      })
+  generateLanguages(languages, appendTo) {
+    this.getData(languages).then(languages => {
+      const LANGUAGES = document.createElement('ul');
+      LANGUAGES.className = 'language-list';
+      for (let language in languages) {
+        const LANGUAGE = document.createElement('li');
+        LANGUAGE.innerText = language;
+        LANGUAGES.appendChild(LANGUAGE);
+      }
+      appendTo.appendChild(LANGUAGES);
+    })
   }
 
   generatePage() {
-    this.generateTitle();
-    this.generateLogo();
-    this.generateReposList();
+    this.getData(this.url).then(data => {
+      let header = document.querySelector('#section-header');
+      let content = document.querySelector('#repos-list');
+      this.generateTitle(data.name, header);
+      this.generateLogo(data.avatar_url, header);
+      this.generateReposList(data.repos_url, content);
+    })
   }
 }
 
-const GITHUB_PAGE = new ViewController('https://api.github.com/orgs/hillel-front-end');
+const url = 'https://api.github.com/orgs/hillel-front-end';
+const GITHUB_PAGE = new ViewController(url);
 GITHUB_PAGE.generatePage();
