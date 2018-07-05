@@ -17,6 +17,8 @@
         <label for="add-video">Insert youtube url</label>
         <input type="text" id="add-video" placeholder="Insert youtube url" class="yt-input" />
         <button class="yt-btn" id="add-btn">Add</button>
+        <div class="yt-incorrect-link">Incorrect link.</div>
+        <div class="yt-already-exist">Video is already in list.</div>
       </div>
       <ul class="yt-list" id="yt-list">
 
@@ -25,9 +27,10 @@
   </main>
   <footer class="yt-footer">
     <div class="yt-container">
-      <button class="yt-btn" id="clear-all">Clear All</button>
+      <button class="yt-btn yt-btn--clear" id="clear-all">Clear All</button>
     </div>
   </footer>
+
   <script src="script.js"></script>
 </body>
 </html>

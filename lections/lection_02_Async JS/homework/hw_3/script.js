@@ -3,10 +3,35 @@
 class YoutubeList {
   constructor() {
     this.add = document.querySelector('#add-btn');
+    this.clear = document.querySelector('#clear-all');
     this.url = document.querySelector('#add-video');
     this.videoList = document.querySelector('#yt-list');
-    this.createYoutubeAPIframe();
-    this.generateVideo();
+    this.savedList = localStorage.getItem('yt-list');
+  }
+
+  init() {
+    fetch(this.createYoutubeAPIframe(), {mode: 'no-cors'})
+      .then(() =>{
+        this.generateSavedList();
+        this.generateNewVideo();
+        this.clearList();
+      })
+      .catch((e)=>console.error(e))
+  }
+
+  createMarkup(ytLink) {
+    let item = document.createElement('li');
+    item.innerHTML = `<div id=${ytLink}></div>`;
+    this.videoList.appendChild(item);
+    this.onYouTubeIframeAPIReady(ytLink);
+  }
+
+  generateSavedList() {
+    if (!this.savedList) return;
+    let videoList = this.savedList.split(',');
+    for (let url of videoList) {
+      this.createMarkup(url);
+    }
   }
 
   getUrl() {
@@ -19,19 +44,24 @@ class YoutubeList {
     }
   }
 
-  generateVideo() {
+  generateNewVideo() {
     this.add.addEventListener('click', () => {
       let ytLink = this.getUrl();
       if (!ytLink) {
-        this.url.classList.add('error');
+        this.url.classList.remove('already-exist');
+        this.url.classList.add('error', 'incorrect-link');
         return;
       }
-      this.url.classList.remove('error');
-      let item = document.createElement('li');
-      item.setAttribute("id", ytLink);
-      this.videoList.appendChild(item);
-      this.onYouTubeIframeAPIReady(ytLink);
-
+      if (this.savedList && this.savedList.indexOf(ytLink) > -1) {
+        this.url.classList.remove('incorrect-link');
+        this.url.classList.add('error', 'already-exist');
+        return;
+      }
+      this.url.classList.remove('error', 'incorrect-link', 'already-exist');
+      this.url.value = '';
+      this.createMarkup(ytLink);
+      this.savedList = this.savedList ? [this.savedList, ytLink] : ytLink;
+      localStorage.setItem("yt-list", this.savedList)
     })
   }
 
@@ -40,12 +70,15 @@ class YoutubeList {
     tag.src = "https://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    return tag.src;
   }
+
 
   onYouTubeIframeAPIReady(id) {
     let player = new YT.Player(id, {
-      height: '360',
-      width: '640',
+      height: '168',
+      width: '300',
       videoId: id,
       events: {
         'onReady': onPlayerReady
@@ -54,16 +87,17 @@ class YoutubeList {
     function onPlayerReady(event) {
       event.target.stopVideo();
     }
-    // function stopVideo() {
-    //   player.stopVideo();
-    // }
     return player;
   }
 
-
+  clearList() {
+    this.clear.addEventListener('click', () => {
+      if (!this.savedList) return;
+      this.videoList.innerHTML = '';
+      localStorage.setItem("yt-list", this.savedList = '');
+    })
+  }
 }
 
-
 const YOUTUBE_LIST = new YoutubeList();
-// YOUTUBE_LIST.init();
-
+YOUTUBE_LIST.init();
