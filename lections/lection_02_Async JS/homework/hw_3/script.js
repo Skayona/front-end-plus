@@ -10,13 +10,23 @@ class YoutubeList {
   }
 
   init() {
-    fetch(this.createYoutubeAPIframe(), {mode: 'no-cors'})
-      .then(() =>{
+    this.createYoutubeAPIframe();
+    let ytAPIready = new Promise((resolve, reject) => {
+      function apiReady() {
+        !(typeof(YT) == 'undefined') ? resolve(YT) : setTimeout(() => {
+          apiReady();
+        }, 100);
+      }
+      apiReady();
+    })
+
+    ytAPIready
+      .then(() => {
         this.generateSavedList();
         this.generateNewVideo();
         this.clearList();
       })
-      .catch((e)=>console.error(e))
+      .catch(e => console.error(e));
   }
 
   createMarkup(ytLink) {
