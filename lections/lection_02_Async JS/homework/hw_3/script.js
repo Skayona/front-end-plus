@@ -10,23 +10,34 @@ class YoutubeList {
   }
 
   init() {
-    this.createYoutubeAPIframe();
-    let ytAPIready = new Promise((resolve, reject) => {
-      function apiReady() {
-        !(typeof(YT) == 'undefined') ? resolve(YT) : setTimeout(() => {
-          apiReady();
-        }, 100);
-      }
-      apiReady();
-    })
-
-    ytAPIready
-      .then(() => {
-        this.generateSavedList();
-        this.generateNewVideo();
-        this.clearList();
+    fetch(this.createYoutubeAPIframe(), {
+        mode: 'no-cors'
       })
-      .catch(e => console.error(e));
+      .then(() => {
+
+        let ytAPIready = new Promise(resolve => {
+          function apiReady() {
+            if (typeof (YT) == 'undefined' || typeof (YT.Player) == 'undefined') {
+              setTimeout(() => {
+                apiReady();
+              }, 100);
+            } else {
+              resolve();
+            }
+          }
+          apiReady();
+        })
+
+        ytAPIready
+          .then(() => {
+            this.generateSavedList();
+            this.generateNewVideo();
+            this.clearList();
+          })
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error('link error', err))
+
   }
 
   createMarkup(ytLink) {
@@ -80,7 +91,6 @@ class YoutubeList {
     tag.src = "https://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
     return tag.src;
   }
 
