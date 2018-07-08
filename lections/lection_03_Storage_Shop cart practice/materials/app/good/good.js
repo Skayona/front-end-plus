@@ -15,11 +15,11 @@ class Good {
     `;
   }
 
-  addToCart(id) {
-    let el = document.querySelector(`#btn-${id}`);
+  addToCart(good = this.good) {
+    let btn = document.querySelector(`#btn-${good.id}`);
 
-    el.addEventListener('click', () => {
-      console.log(el);
+    btn.addEventListener('click', () => {
+      console.log(btn);
     })
   }
 

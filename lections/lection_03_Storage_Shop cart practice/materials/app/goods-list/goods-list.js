@@ -21,7 +21,7 @@ class GoodList {
           let good = new Good(item);
           Promise
             .resolve(good.render())
-            .then(() => good.addToCart(item.id))
+            .then(() => good.addToCart())
         })
       })
       .catch(err => console.error(err))
