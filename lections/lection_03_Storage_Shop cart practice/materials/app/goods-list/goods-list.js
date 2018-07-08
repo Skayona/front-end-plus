@@ -1,3 +1,5 @@
+let DataService = require('../../services/data.js');
+let Good = require('../good/good.js');
 class GoodList {
   constructor(path) {
     this.genereateGoodList(path);
@@ -15,21 +17,18 @@ class GoodList {
           <section class="goods">
             <h1>Goods</h1>
             <div class="goods-wrap">
-              ${
-                data.map(item => {
-                  let good = new Good(item);
-                  return good.create();
-                }).join('')
-              }
+              ${data.map(item => {
+                let good = new Good(item);
+                return good.create();
+              }).join('')}
             </div>
           </section>
         `;
+
+
       })
       .catch(err => console.error(err))
   }
-
-  
 }
 
-const GOODS_URL = 'http://localhost:3780/goods';
-new GoodList(GOODS_URL);
+module.exports = GoodList;

@@ -4,7 +4,8 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "start-http": "http-server"
   },
   "repository": {
     "type": "git"
@@ -13,6 +14,10 @@
   "license": "ISC",
   "devDependencies": {
     "express": "4.16.2",
-    "body-parser": "1.18.2"
+    "body-parser": "1.18.2",
+    "http-server": "0.11.1"
+  },
+  "dependencies": {
+    "systemjs": "^0.19.27"
   }
 }

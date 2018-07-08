@@ -9,9 +9,16 @@
 </head>
 <body>
 
-  <!-- <script src="index.js"></script> -->
-<script src="./services/data.js"></script>
-<script src="./good/good.js"></script>
-<script src="./goods-list/goods-list.js"></script>
+  <script src="node_modules/systemjs/dist/system.js"></script>
+
+  <script>
+    System.config({
+      meta: {
+        format: 'cjs'
+      }
+    });
+    System.import('./main.js');
+  </script>
+
 </body>
 </html>
