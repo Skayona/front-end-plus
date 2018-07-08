@@ -12,21 +12,19 @@ body {
 }
 
 .goods {
-  padding: 20px;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.goods h1 {
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.goods-wrap {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(2, 2fr);
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+.goods h1 {
+  grid-column: 1/3;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .goods__item {

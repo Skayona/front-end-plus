@@ -12,10 +12,8 @@ class GoodList {
         let data = json.data.list;
         let body = document.querySelector('body');
         body.innerHTML = `
-          <section class="goods">
+          <section class="goods" id="goods-list">
             <h1>Goods</h1>
-            <div class="goods-wrap" id="goods-list">
-            </div>
           </section>
         `;
 
