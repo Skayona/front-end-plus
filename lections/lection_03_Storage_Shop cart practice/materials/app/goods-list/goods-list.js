@@ -10,22 +10,21 @@ class GoodList {
       .fetch(path)
       .then(json => {
         let data = json.data.list;
-
         let body = document.querySelector('body');
-
         body.innerHTML = `
           <section class="goods">
             <h1>Goods</h1>
-            <div class="goods-wrap">
-              ${data.map(item => {
-                let good = new Good(item);
-                return good.create();
-              }).join('')}
+            <div class="goods-wrap" id="goods-list">
             </div>
           </section>
         `;
 
-
+        data.forEach(item => {
+          let good = new Good(item);
+          Promise
+            .resolve(good.render())
+            .then(() => good.addToCart(item.id))
+        })
       })
       .catch(err => console.error(err))
   }
