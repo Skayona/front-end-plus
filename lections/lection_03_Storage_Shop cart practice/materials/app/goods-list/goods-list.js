@@ -11,16 +11,20 @@ class GoodList {
       .then(json => {
         let data = json.data.list;
         let body = document.querySelector('body');
+
         body.innerHTML = `
           <section class="goods" id="goods-list">
             <h1>Goods</h1>
           </section>
         `;
+        
+        let goodsList = document.querySelector(`#goods-list`);
+
 
         data.forEach(item => {
           let good = new Good(item);
           Promise
-            .resolve(good.render())
+            .resolve(goodsList.innerHTML += good.render())
             .then(() => good.addToCart())
         })
       })

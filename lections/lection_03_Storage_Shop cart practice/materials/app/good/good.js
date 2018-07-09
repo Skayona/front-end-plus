@@ -4,9 +4,7 @@ class Good {
   }
 
   render(good = this.good) {
-    let goodsList = document.querySelector(`#goods-list`);
-
-    goodsList.innerHTML += `
+    return `
       <article class="goods__item" id="good-${good.id}">
         <h2>${good.title}</h2>
         <div class="goods__price">Price: ${good.price} UAH</div>
