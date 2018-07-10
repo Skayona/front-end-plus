@@ -11,6 +11,10 @@ body {
   font-size: 16px;
 }
 
+body.unscroll {
+  overflow: hidden;
+}
+
 .goods {
   display: grid;
   grid-gap: 20px;
@@ -53,4 +57,27 @@ body {
 
 .goods__item > button {
 
+}
+
+.overlay {
+  position: fixed;
+  display: flex;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0, 0, 0, .5);
+  transition: all .3s ease;
+}
+
+.overlay.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modal {
+  min-width: 50%;
+  margin: auto;
+  padding: 15px;
+  background: #fff;
 }

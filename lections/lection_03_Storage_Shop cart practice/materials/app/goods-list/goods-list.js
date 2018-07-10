@@ -1,32 +1,38 @@
-let DataService = require('../../services/data.js');
-let Good = require('../good/good.js');
+const DATASERVICE = require('../../services/data.js');
+const method = require('../good/good.js');
+const GOOD = method.Good;
+const cart = method.cart;
+
 class GoodList {
   constructor(path) {
-    this.genereateGoodList(path);
+    this.render(path);
   }
 
-  genereateGoodList(path) {
-    DataService
+  render(path) {
+    DATASERVICE
       .fetch(path)
       .then(json => {
         let data = json.data.list;
         let body = document.querySelector('body');
 
-        body.innerHTML = `
+        body.innerHTML += `
           <section class="goods" id="goods-list">
             <h1>Goods</h1>
           </section>
         `;
-        
+
         let goodsList = document.querySelector(`#goods-list`);
 
 
         data.forEach(item => {
-          let good = new Good(item);
+          let good = new GOOD(item);
           Promise
             .resolve(goodsList.innerHTML += good.render())
-            .then(() => good.addToCart())
+            .then(() => {
+              good.addToCart()
+            })
         })
+        cart.toggleFullCart();
       })
       .catch(err => console.error(err))
   }

@@ -1,3 +1,5 @@
+const CART = require('../cart/cart.js');
+let cart = new CART('http://localhost:3780/goods');
 class Good {
   constructor(data) {
     this.good = data;
@@ -15,13 +17,17 @@ class Good {
 
   addToCart(good = this.good) {
     let btn = document.querySelector(`#btn-${good.id}`);
-
     btn.addEventListener('click', () => {
-      console.log(btn);
+      let goodsInCart = localStorage.getItem('InCart');
+      if (goodsInCart && goodsInCart.indexOf(good.id) > -1) return;
+      goodsInCart = goodsInCart ? [goodsInCart, good.id] : good.id;
+      localStorage.setItem('InCart', goodsInCart);
+      cart.changeCounter();
+      cart.updateCart();
     })
   }
 
 }
 
 
-module.exports = Good;
+module.exports = {Good, cart};

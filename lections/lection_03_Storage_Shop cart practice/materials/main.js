@@ -1,4 +1,6 @@
-let GoodList = require('./app/goods-list/goods-list.js');
-
+const GOOD_LIST = require('./app/goods-list/goods-list.js');
 const GOODS_URL = 'http://localhost:3780/goods';
-new GoodList(GOODS_URL);
+
+
+new GOOD_LIST(GOODS_URL);
+
