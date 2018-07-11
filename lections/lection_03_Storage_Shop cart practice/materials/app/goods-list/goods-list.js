@@ -33,7 +33,6 @@ class GoodList {
             })
         })
         cart.toggleFullCart();
-        cart.updateCart()
       })
       .catch(err => console.error(err))
   }

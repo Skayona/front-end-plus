@@ -90,7 +90,9 @@ class Cart {
         })
         totalPrice.innerHTML = `${total} UAH`;
       })
-      .then(() => this.deleteFromCart())
+      .then(() => {
+        this.deleteFromCart();
+      })
       .catch(err => console.error(err))
   }
 
