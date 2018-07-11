@@ -24,8 +24,7 @@ class Cart {
       <div class="overlay hidden" id="fullCart">
         <section class="modal">
           <h2>Goods In Cart</h2>
-          <ul id="savedList">
-          </ul>
+          <div id="cartContent"></div>
         </section>
       </div>
     `;
@@ -35,39 +34,93 @@ class Cart {
   }
 
   updateCart(path = this.url) {
-    let savedList = document.querySelector(`#savedList`);
+    let cartContent = document.querySelector(`#cartContent`);
     if (!this.saved) {
-      savedList.innerHTML = `
+      cartContent.innerHTML = `
         <p>Cart is empty</p>
       `;
       return;
     }
-    savedList.innerHTML = '';
+    cartContent.innerHTML = `
+      <table>
+        <thead>
+          <th>#</th>
+          <th>Title</th>
+          <th>Amount</th>
+          <th>Price</th>
+          <th>Total</th>
+        </thead>
+        <tbody id="savedList">
+        </tbody>
+        <tfoot>
+          <td colspan="4">Total:</td>
+          <td id="totalPrice"></td>
+        <tfoot>
+      <table>
+    `;
 
     DATASERVICE
       .fetch(path)
       .then(json => {
-        let goods = json.data.list;
-        goods.forEach(item => {
-          if (this.saved.indexOf(item.id) > -1) {
-            savedList.innerHTML += `
-              <li>Title: ${item.title}, price: ${item.price}</li>
-            `;
+        let savedList = document.querySelector(`#savedList`);
+        let totalPrice = document.querySelector(`#totalPrice`);
+        let total = 0;
+        let goods = json.data.list;;
+        goods.forEach((el,i) => {
+          let id = `id${el.id}`;
+          if (this.saved.indexOf(id) == -1) return;
+          let inCart = this.saved.split(',');
+          let quantity = 1;
+          for (let item of inCart) {
+            if (item.indexOf(id) == 0) quantity = +item.replace(`${id}q`, '');
           }
+          total += el.price * quantity;
+          savedList.innerHTML += `
+            <tr id="saved-${el.id}">
+              <td>${i+1}</td>
+              <td>${el.title}</td>
+              <td>
+                <input type="number" value="${quantity}" step="1" min="1"/>
+                <button type="button" class="deleteFromCart" id="delete-${el.id}">Del</button>
+              </td>
+              <td>${el.price} UAH</td>
+              <td>${el.price * quantity} UAH</td>
+            </tr>
+          `;
+        })
+        totalPrice.innerHTML = `${total} UAH`;
+      })
+      .then(() => {
+        let btns = [].slice.call(document.querySelectorAll('.deleteFromCart'));
+        btns.forEach((el) => {
+          el.addEventListener('click', () => {
+            cart.deleteFromCart(el.id)
+          })
         })
       })
       .catch(err => console.error(err))
   }
 
+  deleteFromCart(id) {
+    console.log('+');
+
+    id = id.replace('delete-', '');
+    let table = document.querySelector(`#savedList`);
+    let el = document.getElementById(`saved-${id}`);
+    table.removeChild(el);
+  }
+
   toggleFullCart() {
     let cart = document.querySelector(`#${this.id}`);
-    let modal = document.querySelector('#fullCart');
+    let overlay = document.querySelector('#fullCart');
+    let modal = document.querySelector('#fullCart .modal');
     function toggleModal() {
-      modal.classList.toggle('hidden');
+      overlay.classList.toggle('hidden');
       document.querySelector('body').classList.toggle('unscroll');
     }
     cart.addEventListener('click', toggleModal);
-    modal.addEventListener('click', toggleModal);
+    overlay.addEventListener('click', toggleModal);
+    modal.addEventListener('click', e => e.stopPropagation());
   }
 
   changeCounter() {

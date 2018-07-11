@@ -19,9 +19,20 @@ class Good {
     let btn = document.querySelector(`#btn-${good.id}`);
     btn.addEventListener('click', () => {
       let goodsInCart = localStorage.getItem('InCart');
-      if (goodsInCart && goodsInCart.indexOf(good.id) > -1) return;
-      goodsInCart = goodsInCart ? [goodsInCart, good.id] : good.id;
-      localStorage.setItem('InCart', goodsInCart);
+      let saved = goodsInCart ? goodsInCart.split(',') : [];
+      let id = `id${good.id}`;
+      if (goodsInCart && goodsInCart.indexOf(id) > -1) {
+        saved = saved.map(item=> {
+          if (item.indexOf(`id${good.id}`) == 0)  {
+            let quantity = +item.replace(`${id}q`, '')+1;
+            item = `${id}q${quantity}`;
+          }
+          return item;
+        })
+      } else {
+        saved.push(`${id}q1`);
+      }
+      localStorage.setItem('InCart', saved);
       cart.changeCounter();
       cart.updateCart();
     })
