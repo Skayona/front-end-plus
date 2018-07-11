@@ -90,24 +90,23 @@ class Cart {
         })
         totalPrice.innerHTML = `${total} UAH`;
       })
-      .then(() => {
-        let btns = [].slice.call(document.querySelectorAll('.deleteFromCart'));
-        btns.forEach((el) => {
-          el.addEventListener('click', () => {
-            cart.deleteFromCart(el.id)
-          })
-        })
-      })
+      .then(() => this.deleteFromCart())
       .catch(err => console.error(err))
   }
 
-  deleteFromCart(id) {
-    console.log('+');
+  deleteFromCart() {
+    let btns = [].slice.call(document.querySelectorAll('.deleteFromCart'));
+    btns.forEach((el) => {
+      el.addEventListener('click', () => {
+        console.log('+');
+        let id = el.id.replace('delete-', '');
+        let table = document.querySelector(`#savedList`);
+        let row = document.getElementById(`saved-${id}`);
+        table.removeChild(row);
+      })
+    })
 
-    id = id.replace('delete-', '');
-    let table = document.querySelector(`#savedList`);
-    let el = document.getElementById(`saved-${id}`);
-    table.removeChild(el);
+
   }
 
   toggleFullCart() {
