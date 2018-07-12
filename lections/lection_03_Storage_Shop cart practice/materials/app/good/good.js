@@ -3,20 +3,23 @@ let cart = new CART('http://localhost:3780/goods');
 class Good {
   constructor(data) {
     this.good = data;
+    this.articleId = 'js-good-';
+    this.addId = 'js-btn-';
   }
 
   render(good = this.good) {
     return `
-      <article class="goods__item" id="good-${good.id}">
-        <h2>${good.title}</h2>
-        <div class="goods__price">Price: ${good.price} UAH</div>
-        <button type="button" id="btn-${good.id}">Add</button>
+      <article class="fw-good" id="${this.articleId}${good.id}">
+        <h3 class="h3 fw-good__title">${good.title}</h3>
+        <img class="fw-good__img" src="${good.src}" alt="${good.title}" />
+        <div class="fw-good__price">Price: ${good.price} UAH</div>
+        <button type="button" class="btn btn--add fw-good__btn" id="${this.addId}${good.id}" aria-label="Add to cart">+</button>
       </article>
     `;
   }
 
   addToCart(good = this.good) {
-    let btn = document.querySelector(`#btn-${good.id}`);
+    let btn = document.querySelector(`#${this.addId}${good.id}`);
     btn.addEventListener('click', () => {
       let goodsInCart = localStorage.getItem('InCart');
       let saved = goodsInCart ? goodsInCart.split(',') : [];

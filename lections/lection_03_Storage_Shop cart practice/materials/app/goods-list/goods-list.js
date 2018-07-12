@@ -5,6 +5,7 @@ const cart = method.cart;
 
 class GoodList {
   constructor(path) {
+    this.listId = 'js-goods-list';
     this.render(path);
   }
 
@@ -12,25 +13,27 @@ class GoodList {
     DATASERVICE
       .fetch(path)
       .then(json => {
-        let data = json.data.list;
-        let body = document.querySelector('body');
+        const data = json.data.list;
+        const body = document.querySelector('body');
 
         body.innerHTML += `
-          <section class="goods" id="goods-list">
-            <h1>Goods</h1>
-          </section>
+          <main>
+            <section class="fw-goods" id="${this.listId}">
+              <h2 class="h2 fw-goods__title">Lemonade</h2>
+            </section>
+          </main>
+          <footer class="fw-footer">
+            <span class="fw-footer__copy">&copy;KM ${(new Date()).getFullYear()}</span>
+          </footer>
         `;
 
-        let goodsList = document.querySelector(`#goods-list`);
-
+        const list = document.querySelector(`#${this.listId}`);
 
         data.forEach(item => {
           let good = new GOOD(item);
           Promise
-            .resolve(goodsList.innerHTML += good.render())
-            .then(() => {
-              good.addToCart()
-            })
+            .resolve(list.innerHTML += good.render())
+            .then(() => good.addToCart())
         })
         cart.toggleCartModal();
         cart.deleteFromCart();

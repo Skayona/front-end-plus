@@ -3,7 +3,13 @@ const DATASERVICE = require('../../services/data.js');
 class Cart {
   constructor(url) {
     this.url = url;
-    this.cartBtnId = 'viewCart';
+    this.showBtnId = 'js-show-cart';
+    this.contentId = 'js-cart-content';
+    this.savedListId = 'js-saved-list';
+    this.deleteItemId = 'js-delete-';
+    this.quantityId = 'js-quantity-';
+    this.overlayId = 'js-overlay-card';
+    this.rowId = 'js-row-';
     this.saved = localStorage.getItem('InCart');
     this.body = document.querySelector('body');
     this.render();
@@ -12,8 +18,9 @@ class Cart {
 
   render() {
     this.body.innerHTML = `
-      <header>
-        <button type="button" id="${this.cartBtnId}"></button>
+      <header class="fw-header">
+        <h1 class="h1 fw-header__title">Fresh&nbsp;Water</h1>
+        <button type="button" class="btn btn--cart fw-header__btn" id="${this.showBtnId}"></button>
       </header>
     `;
     this.changeCounter();
@@ -21,10 +28,10 @@ class Cart {
 
   renderCartModal() {
     this.body.innerHTML += `
-      <div class="overlay hidden" id="fullCart">
-        <section class="modal">
-          <h2>Goods In Cart</h2>
-          <div id="cartContent"></div>
+      <div class="fw-overlay hidden" id="${this.overlayId}">
+        <section class="fw-modal">
+          <h2 class="h2 fw-modal__title">Goods In Cart</h2>
+          <div class="fw-modal__content" id="${this.contentId}"></div>
         </section>
       </div>
     `;
@@ -32,7 +39,7 @@ class Cart {
   }
 
   updateCart(path = this.url) {
-    let cartContent = document.querySelector(`#cartContent`);
+    let cartContent = document.querySelector(`#${this.contentId}`);
     if (!this.saved) {
       cartContent.innerHTML = `
         <p>Cart is empty</p>
@@ -40,17 +47,17 @@ class Cart {
       return;
     }
     cartContent.innerHTML = `
-      <table>
-        <thead>
-          <th>#</th>
+      <table class="fw-table">
+        <thead class="fw-table__header">
+          <th></th>
           <th>Title</th>
           <th>Amount</th>
           <th>Price</th>
           <th>Total</th>
         </thead>
-        <tbody id="savedList">
+        <tbody class="fw-table__body" id="${this.savedListId}">
         </tbody>
-        <tfoot>
+        <tfoot class="fw-table__footer">
           <td colspan="4">Total:</td>
           <td id="totalPrice"></td>
         <tfoot>
@@ -60,7 +67,7 @@ class Cart {
     DATASERVICE
       .fetch(path)
       .then(json => {
-        let savedList = document.querySelector(`#savedList`);
+        let savedList = document.querySelector(`#${this.savedListId}`);
         let totalPrice = document.querySelector(`#totalPrice`);
         let total = 0;
         let goods = json.data.list;;
@@ -74,20 +81,20 @@ class Cart {
           }
           total += el.price * quantity;
           savedList.innerHTML += `
-            <tr id="saved-${el.id}">
+            <tr id="${this.rowId}${el.id}">
               <td>
-                <button type="button" class="deleteFromCart" id="delete-${el.id}">Del</button>
+                <button type="button" class="deleteFromCart" id="${this.deleteItemId}${el.id}">Del</button>
               </td>
               <td>${el.title}</td>
               <td>
-                <input type="number" class="goodQuantity" data-value="${quantity}" value="${quantity}" id="quantity-${el.id}"step="1" min="1" />
+                <input type="number" class="goodQuantity" data-value="${quantity}" value="${quantity}" id="${this.quantityId}${el.id}" step="1" min="1" />
               </td>
               <td>${el.price} UAH</td>
               <td>${el.price * quantity} UAH</td>
             </tr>
           `;
         })
-        totalPrice.innerHTML = `${total} UAH`;
+        totalPrice.innerText = `${total} UAH`;
       })
       .then(() => {
         this.deleteFromCart();
@@ -102,9 +109,10 @@ class Cart {
     btns.forEach((el) => {
       el.addEventListener('click', () => {
         let saved = this.saved.split(',');
-        let id = el.id.replace('delete-', '');
-        let table = document.querySelector(`#savedList`);
-        let row = document.getElementById(`saved-${id}`);
+        let id = el.id.replace(this.deleteItemId, '');
+        let table = document.querySelector(`#${this.savedListId}`);
+        let row = document.getElementById(`${this.rowId}${id}`);
+
         table.removeChild(row);
         saved.forEach((e,i) => {
           if (e.indexOf(`id${id}`) > -1) saved.splice(i, 1);
@@ -128,7 +136,7 @@ class Cart {
           let quantity = el.value;
           el.dataset.value = quantity;
           let saved = this.saved.split(',');
-          let id = el.id.replace('quantity-', '');
+          let id = el.id.replace(this.quantityId, '');
           saved = saved.map(e => {
             if (e.indexOf(`id${id}`) > -1) {
               return `id${id}q${quantity}`;
@@ -143,9 +151,9 @@ class Cart {
   }
 
   toggleCartModal() {
-    let cart = document.querySelector(`#${this.cartBtnId}`);
-    let overlay = document.querySelector('#fullCart');
-    let modal = document.querySelector('#fullCart .modal');
+    let cart = document.querySelector(`#${this.showBtnId}`);
+    let overlay = document.querySelector(`#${this.overlayId}`);
+    let modal = document.querySelector(`#${this.overlayId} .fw-modal`);
 
     function toggleModal() {
       overlay.classList.toggle('hidden');
@@ -158,7 +166,7 @@ class Cart {
 
 
   changeCounter() {
-    let cart = document.querySelector(`#${this.cartBtnId}`);
+    let cart = document.querySelector(`#${this.showBtnId}`);
     this.saved = localStorage.getItem('InCart');
     cart.innerHTML = !this.saved ? 'Cart Is Empty' : `View Cart <span>${this.saved.split(',').length}</span>`;
   }
