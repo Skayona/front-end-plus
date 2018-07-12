@@ -32,7 +32,9 @@ class GoodList {
               good.addToCart()
             })
         })
-        cart.toggleFullCart();
+        cart.toggleCartModal();
+        cart.deleteFromCart();
+        cart.changeQuantity();
       })
       .catch(err => console.error(err))
   }
