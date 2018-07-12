@@ -9,15 +9,14 @@ class Cart {
     this.deleteItemId = 'js-delete-';
     this.quantityId = 'js-quantity-';
     this.overlayId = 'js-overlay-card';
+    this.modalCloseId = 'js-close-modal';
     this.rowId = 'js-row-';
     this.saved = localStorage.getItem('InCart');
-    this.body = document.querySelector('body');
-    this.render();
-    this.renderCartModal();
   }
 
   render() {
-    this.body.innerHTML = `
+    const body = document.querySelector('body');
+    body.innerHTML = `
       <header class="fw-header">
         <h1 class="h1 fw-header__title">Fresh&nbsp;Water</h1>
         <button type="button" class="btn btn--cart fw-header__btn" id="${this.showBtnId}"></button>
@@ -26,15 +25,18 @@ class Cart {
     this.changeCounter();
   }
 
-  renderCartModal() {
-    this.body.innerHTML += `
+  renderModal() {
+    const main = document.querySelector('main');
+    main.innerHTML += `
       <div class="fw-overlay hidden" id="${this.overlayId}">
-        <section class="fw-modal">
+      <section class="fw-modal">
+          <button type="button" class="fw-modal__close" id="${this.modalCloseId}" aria-label="close cart">x</button>
           <h2 class="h2 fw-modal__title">Goods In Cart</h2>
           <div class="fw-modal__content" id="${this.contentId}"></div>
         </section>
       </div>
     `;
+    this.toggleCartModal();
     this.updateCart();
   }
 
@@ -60,8 +62,8 @@ class Cart {
         <tfoot class="fw-table__footer">
           <td colspan="4">Total:</td>
           <td id="totalPrice"></td>
-        <tfoot>
-      <table>
+        </tfoot>
+      </table>
     `;
 
     DATASERVICE
@@ -112,10 +114,11 @@ class Cart {
         let id = el.id.replace(this.deleteItemId, '');
         let table = document.querySelector(`#${this.savedListId}`);
         let row = document.getElementById(`${this.rowId}${id}`);
-
         table.removeChild(row);
+
         saved.forEach((e,i) => {
-          if (e.indexOf(`id${id}`) > -1) saved.splice(i, 1);
+          if (e.indexOf(`id${id}`) == -1) return;
+          saved.splice(i, 1);
         })
 
         localStorage.setItem('InCart', saved);
@@ -154,6 +157,7 @@ class Cart {
     let cart = document.querySelector(`#${this.showBtnId}`);
     let overlay = document.querySelector(`#${this.overlayId}`);
     let modal = document.querySelector(`#${this.overlayId} .fw-modal`);
+    let close = document.querySelector(`#${this.modalCloseId}`);
 
     function toggleModal() {
       overlay.classList.toggle('hidden');
@@ -161,6 +165,7 @@ class Cart {
     }
     cart.addEventListener('click', toggleModal);
     overlay.addEventListener('click', toggleModal);
+    close.addEventListener('click', toggleModal);
     modal.addEventListener('click', e => e.stopPropagation());
   }
 

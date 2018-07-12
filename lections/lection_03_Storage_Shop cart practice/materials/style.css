@@ -59,7 +59,7 @@ body.unscroll {
 
 }
 
-.overlay {
+.fw-overlay {
   position: fixed;
   display: flex;
   left: 0;
@@ -70,12 +70,12 @@ body.unscroll {
   transition: all .3s ease;
 }
 
-.overlay.hidden {
+.fw-overlay.hidden {
   visibility: hidden;
   opacity: 0;
 }
 
-.modal {
+.fw-modal {
   min-width: 50%;
   margin: auto;
   padding: 15px;

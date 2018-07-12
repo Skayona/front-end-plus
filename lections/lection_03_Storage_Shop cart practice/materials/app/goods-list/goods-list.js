@@ -1,20 +1,24 @@
 const DATASERVICE = require('../../services/data.js');
-const method = require('../good/good.js');
-const GOOD = method.Good;
-const cart = method.cart;
+// const method = require('../good/good.js');
+// const GOOD = method.Good;
+// const cart = method.cart;
+
 
 class GoodList {
-  constructor(path) {
+  constructor(path, GOOD, CART) {
+    this.cart = new CART(path);
     this.listId = 'js-goods-list';
-    this.render(path);
+    this.render(path, GOOD, this.cart);
   }
 
-  render(path) {
+  render(path, GOOD, cart) {
     DATASERVICE
       .fetch(path)
       .then(json => {
         const data = json.data.list;
         const body = document.querySelector('body');
+
+        cart.render();
 
         body.innerHTML += `
           <main>
@@ -30,14 +34,14 @@ class GoodList {
         const list = document.querySelector(`#${this.listId}`);
 
         data.forEach(item => {
-          let good = new GOOD(item);
+          let good = new GOOD(item, cart);
           Promise
-            .resolve(list.innerHTML += good.render())
-            .then(() => good.addToCart())
-        })
-        cart.toggleCartModal();
-        cart.deleteFromCart();
-        cart.changeQuantity();
+          .resolve(list.innerHTML += good.render())
+          .then(() => good.addToCart(cart))
+        });
+
+        cart.renderModal();
+
       })
       .catch(err => console.error(err))
   }
