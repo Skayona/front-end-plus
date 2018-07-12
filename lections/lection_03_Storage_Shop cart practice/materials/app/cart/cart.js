@@ -30,8 +30,8 @@ class Cart {
     main.innerHTML += `
       <div class="fw-overlay hidden" id="${this.overlayId}">
       <section class="fw-modal">
-          <button type="button" class="fw-modal__close" id="${this.modalCloseId}" aria-label="close cart">x</button>
-          <h2 class="h2 fw-modal__title">Goods In Cart</h2>
+          <button type="button" class="fw-modal__close" id="${this.modalCloseId}" aria-label="close cart"></button>
+          <h2 class="h2 fw-modal__title">Selected Lemonades</h2>
           <div class="fw-modal__content" id="${this.contentId}"></div>
         </section>
       </div>
@@ -52,15 +52,16 @@ class Cart {
       <table class="fw-table">
         <thead class="fw-table__header">
           <th></th>
+          <th></th>
           <th>Title</th>
           <th>Amount</th>
-          <th>Price</th>
-          <th>Total</th>
+          <th>Price, UAH</th>
+          <th>Total, UAH</th>
         </thead>
         <tbody class="fw-table__body" id="${this.savedListId}">
         </tbody>
         <tfoot class="fw-table__footer">
-          <td colspan="4">Total:</td>
+          <td colspan="5"></td>
           <td id="totalPrice"></td>
         </tfoot>
       </table>
@@ -85,18 +86,21 @@ class Cart {
           savedList.innerHTML += `
             <tr id="${this.rowId}${el.id}">
               <td>
-                <button type="button" class="deleteFromCart" id="${this.deleteItemId}${el.id}">Del</button>
+                <button type="button" class="deleteFromCart" id="${this.deleteItemId}${el.id}"></button>
+              </td>
+              <td>
+                <img class="fw-table__img" src="${el.img}" alt="${el.title}" />
               </td>
               <td>${el.title}</td>
               <td>
                 <input type="number" class="goodQuantity" data-value="${quantity}" value="${quantity}" id="${this.quantityId}${el.id}" step="1" min="1" />
               </td>
-              <td>${el.price} UAH</td>
-              <td>${el.price * quantity} UAH</td>
+              <td>${el.price}</td>
+              <td>${el.price * quantity}</td>
             </tr>
           `;
         })
-        totalPrice.innerText = `${total} UAH`;
+        totalPrice.innerText = `${total}`;
       })
       .then(() => {
         this.deleteFromCart();
