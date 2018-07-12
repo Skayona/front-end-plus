@@ -9,7 +9,7 @@ class Good {
     return `
       <article class="fw-good" id="${this.articleId}${good.id}">
         <h3 class="h3 fw-good__title">${good.title}</h3>
-        <img class="fw-good__img" src="${good.src}" alt="${good.title}" />
+        <img class="fw-good__img" src="${good.img}" alt="${good.title}" />
         <div class="fw-good__price">Price: ${good.price} UAH</div>
         <button type="button" class="btn btn--add fw-good__btn" id="${this.addId}${good.id}" aria-label="Add to cart">+</button>
       </article>
