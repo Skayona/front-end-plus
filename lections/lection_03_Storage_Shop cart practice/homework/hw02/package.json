@@ -1,0 +1,22 @@
+{
+  "name": "mock-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "node server.js",
+    "start-http": "http-server"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.16.3",
+    "http-server": "0.11.1"
+  },
+  "dependencies": {
+    "systemjs": "^0.19.27"
+  }
+}
