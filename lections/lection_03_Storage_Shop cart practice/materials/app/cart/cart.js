@@ -29,10 +29,11 @@ class Cart {
     const main = document.querySelector('main');
     main.innerHTML += `
       <div class="fw-overlay hidden" id="${this.overlayId}">
-      <section class="fw-modal">
+        <section class="fw-modal">
           <button type="button" class="fw-modal__close" id="${this.modalCloseId}" aria-label="close cart"></button>
           <h2 class="h2 fw-modal__title">Selected Lemonades</h2>
           <div class="fw-modal__content" id="${this.contentId}"></div>
+          <button class="fw-modal__order btn btn--order" id="js-order-goods" type="button">Order</button>
         </section>
       </div>
     `;
@@ -101,10 +102,12 @@ class Cart {
           `;
         })
         totalPrice.innerText = `${total}`;
+        return goods;
       })
-      .then(() => {
+      .then(data => {
         this.deleteFromCart();
         this.changeQuantity();
+        this.orderGoods(data);
       })
       .catch(err => console.error(err))
   }
@@ -132,7 +135,6 @@ class Cart {
       })
     })
   }
-
 
   changeQuantity() {
       let inputs = [].slice.call(document.querySelectorAll('.goodQuantity'));
@@ -173,11 +175,28 @@ class Cart {
     modal.addEventListener('click', e => e.stopPropagation());
   }
 
-
   changeCounter() {
     let cart = document.querySelector(`#${this.showBtnId}`);
     this.saved = localStorage.getItem('InCart');
     cart.innerHTML = !this.saved ? 'Cart Is Empty' : `View Cart <span>${this.saved.split(',').length}</span>`;
+  }
+
+  orderGoods (data) {
+    const order = document.querySelector('#js-order-goods');
+
+    order.addEventListener('click', ()=> {
+      DATASERVICE
+        .fetch('http://localhost:3780/order')
+        .then(res => console.log(res))
+        .catch((err) => {
+          console.error(err);
+
+          // dataBase(this.saved);
+          console.log(this.saved);
+
+
+        })
+    })
   }
 }
 

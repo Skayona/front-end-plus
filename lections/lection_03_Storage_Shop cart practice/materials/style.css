@@ -97,6 +97,19 @@ body.unscroll {
   transition: all .15s ease;
 }
 
+.btn--order {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 16px;
+  color: var(--white);
+  background: var(--green);
+}
+
+.btn--order:hover,
+.btn--order:focus {
+  background: #527361;
+}
 .btn--cart {
   position: relative;
   min-width: 160px;
@@ -104,6 +117,7 @@ body.unscroll {
   padding: 8px 16px 8px 46px;
   color: var(--white);
   background: var(--green);
+  transition: inherit;
 }
 
 .btn--cart>span {
