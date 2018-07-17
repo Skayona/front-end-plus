@@ -1,4 +1,5 @@
 const DATASERVICE = require('../../services/data.js');
+const DataBase = require('../../services/dataBase.js');
 
 class Cart {
   constructor(url) {
@@ -183,17 +184,25 @@ class Cart {
 
   orderGoods (data) {
     const order = document.querySelector('#js-order-goods');
+    let list = this.saved.split(',');
+    list = list.map(e => {
+      e = e.replace('id', '');
+      let id = e.slice(0, e.indexOf('q'))
+      e = e.replace(`${id}q`, '');
+      let q = e;
+      return {id, q};
+    })
+
+    console.log(list);
+
 
     order.addEventListener('click', ()=> {
       DATASERVICE
         .fetch('http://localhost:3780/order')
         .then(res => console.log(res))
-        .catch((err) => {
-          console.error(err);
-
-          // dataBase(this.saved);
-          console.log(this.saved);
-
+        .catch(() => {
+          DataBase(list);
+          console.log(indexedDB.open("InCart", 3).result);
 
         })
     })
