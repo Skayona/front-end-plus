@@ -1,5 +1,8 @@
 const DATASERVICE = require('../../services/data.js');
 const DataBase = require('../../services/dataBase.js');
+const saveGoods = DataBase.setBase;
+const orderSavedGoods = DataBase.orderSavedBase;
+
 
 class Cart {
   constructor(url) {
@@ -13,6 +16,7 @@ class Cart {
     this.modalCloseId = 'js-close-modal';
     this.rowId = 'js-row-';
     this.saved = localStorage.getItem('InCart');
+    this.sendSavedOrder();
   }
 
   render() {
@@ -34,7 +38,6 @@ class Cart {
           <button type="button" class="fw-modal__close" id="${this.modalCloseId}" aria-label="close cart"></button>
           <h2 class="h2 fw-modal__title">Selected Lemonades</h2>
           <div class="fw-modal__content" id="${this.contentId}"></div>
-          <button class="fw-modal__order btn btn--order" id="js-order-goods" type="button">Order</button>
         </section>
       </div>
     `;
@@ -67,6 +70,7 @@ class Cart {
           <td id="totalPrice"></td>
         </tfoot>
       </table>
+      <button class="fw-modal__order btn btn--order" id="js-order-goods" type="button">Order</button>
     `;
 
     DATASERVICE
@@ -193,20 +197,24 @@ class Cart {
       return {id, q};
     })
 
-    console.log(list);
-
 
     order.addEventListener('click', ()=> {
+      localStorage.setItem('InCart', '');
+      this.saved = localStorage.getItem('InCart');
+      this.changeCounter();
+      this.updateCart();
+
       DATASERVICE
         .fetch('http://localhost:3780/order')
         .then(res => console.log(res))
-        .catch(() => {
-          DataBase(list);
-          console.log(indexedDB.open("InCart", 3).result);
-
-        })
+        .catch(() => saveGoods(list))
     })
   }
+
+  sendSavedOrder() {
+    orderSavedGoods();
+  }
+
 }
 
 module.exports = Cart;

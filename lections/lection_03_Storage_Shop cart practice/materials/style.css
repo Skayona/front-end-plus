@@ -28,9 +28,12 @@
 }
 
 body {
-  background: #fff;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   margin: 0 auto;
   min-width: 320px;
+  min-height: 100vh;
+  background: #fff;
 }
 
 html {
@@ -237,6 +240,7 @@ body.unscroll {
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(180px, 300px));
   justify-content: center;
+  min-height: 100%;
   padding: 15px var(--general-gaps);
   background: var(--yellow);
 }
