@@ -11,13 +11,11 @@ fs.readdir(path, (err, items) => {
 
   Promise
     .all(
-      items.map(item => {
-        return new Promise(resolve => {
-          let lang = item.match(re)[0].slice(1, -1);
-          let translates = require(`${path}/${item}`);
-          resolve(new Map().set(lang, translates));
-        });
-      })
+      items.map(item => new Promise(resolve => {
+        let lang = item.match(re)[0].slice(1, -1);
+        let translates = require(`${path}/${item}`);
+        resolve(new Map().set(lang, translates));
+      }))
     )
     .then((result) => {
       result.forEach(tr => {
@@ -27,4 +25,4 @@ fs.readdir(path, (err, items) => {
       })
       console.log(all_tr);
     })
-});
+  });

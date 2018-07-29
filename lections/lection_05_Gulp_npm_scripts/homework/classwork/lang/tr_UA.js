@@ -1,5 +1,6 @@
 const lang = {
-  "title": "ЗАГОЛОВОК"
+  "title": "ЗАГОЛОВОК",
+  "content": "ВМІСТ"
 }
 
 module.exports = lang;

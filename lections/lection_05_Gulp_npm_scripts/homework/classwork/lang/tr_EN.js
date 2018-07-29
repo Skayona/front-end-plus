@@ -1,5 +1,6 @@
 const lang = {
-  "title": "TITLE"
+  "title": "TITLE",
+  "content": "CONTENT"
 }
 
 module.exports = lang;
