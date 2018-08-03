@@ -33,7 +33,6 @@ Promise
     fs.readdir(initilaDir, (err, items) => {
       if (err) throw err;
       items.forEach((img, i) => {
-        console.log('copyImg');
         let ext = path.extname(img);
         let count = (i < 9) ? `0${i+1}` : i + 1;
         copyImg(`${initilaDir}/${img}`, `${finalDir}/${name}${count}${ext}`);
