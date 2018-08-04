@@ -3,6 +3,9 @@ let path = require('path');
 let initilaDir = './img';
 let finalDir = './new-img';
 let name = 'image_FR_';
+let map = [2, 1, 4, 3];
+let imgOrder = new Object();
+
 
 function copyImg(path, dest) {
   fs.copyFile(path, dest, (err) => {
@@ -35,7 +38,14 @@ Promise
       items.forEach((img, i) => {
         let ext = path.extname(img);
         let count = (i < 9) ? `0${i+1}` : i + 1;
-        copyImg(`${initilaDir}/${img}`, `${finalDir}/${name}${count}${ext}`);
+        let newName = `${name}${count}${ext}`;
+        let pos = map[i];
+        imgOrder[pos] = newName;
+        copyImg(`${initilaDir}/${img}`, `${finalDir}/${newName}`);
+      });
+      let json = JSON.stringify(imgOrder);
+      fs.writeFile(`${finalDir}/images-order.json`, json, 'utf8', (err) => {
+        if (err) throw err;
       });
     });
   })
