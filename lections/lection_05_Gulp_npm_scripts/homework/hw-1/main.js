@@ -25,4 +25,4 @@ fs.readdir(path, (err, items) => {
       })
       console.log(all_tr);
     })
-  });
+});

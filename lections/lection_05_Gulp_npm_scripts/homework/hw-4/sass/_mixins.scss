@@ -1,0 +1,19 @@
+@mixin multiLineEllipsis($font-size, $lineHeight, $lineCount) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lineCount;
+  max-height: $lineHeight * $lineCount;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  font-size: $font-size;
+  line-height: $lineHeight;
+}
+
+@mixin oneLineEllipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

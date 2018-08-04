@@ -1,0 +1,13 @@
+
+@import 'vars';
+@import 'mixins';
+
+body {
+  background: $green;
+}
+
+p {
+  color: $white;
+  text-shadow: $black 1px 1px;
+  @include multiLineEllipsis(16px, 24px, 3)
+}
