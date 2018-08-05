@@ -24,8 +24,8 @@ window.onload = function () {
         res.reduce((prev, cur) => {
           ratio = Math.floor((cur.exchangeRate / prev.exchangeRate) * 100);
         })
-        const body = document.querySelector('body');
-        body.innerHTML = `
+        const firstEx = document.querySelector('#first-example');
+        firstEx.innerHTML = `
           <table>
             <thead>
               <tr>
