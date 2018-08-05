@@ -11,8 +11,5 @@
   "license": "ISC",
   "devDependencies": {
     "http-server": "0.11.1"
-  },
-  "dependencies": {
-    "systemjs": "^0.19.27"
   }
 }
