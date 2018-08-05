@@ -20,7 +20,37 @@ window.onload = function () {
         })
       ))
       .then(res => {
-        console.log(res);
+        let ratio;
+        res.reduce((prev, cur) => {
+          ratio = Math.floor((cur.exchangeRate / prev.exchangeRate) * 100);
+        })
+        const body = document.querySelector('body');
+        body.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Date
+                </th>
+                ${res.map(e => `<th>${e.date}</th>`).join('')}
+                <th>
+                  Ratio, %
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  1 USD
+                </td>
+                  ${res.map(e => `<td>${e.exchangeRate}</td>`).join('')}
+                <td>
+                  ${ratio}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        `;
       })
   })(['01.12.2014', '05.08.2018']);
 
