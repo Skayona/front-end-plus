@@ -5,7 +5,7 @@ window.onload = function () {
     const curDate = new Date().valueOf();
     const msInDay = 86400000;
     let dates = [];
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i <= n; i++) {
       let date = new Date(curDate - (i * msInDay)).toLocaleDateString('uk-UA');
       dates.push(date);
     }
@@ -26,41 +26,33 @@ window.onload = function () {
         })
       ))
       .then(res => {
-        console.log(res);
-        let ratio = [];
-        res.reduce((prev, cur) => {
-          console.log(cur);
-
-          // ratio.push(Math.floor((cur.exchangeRate / prev.exchangeRate) * 100));
+        res.reduce((prev, cur, i) => {
+          res[i - 1].ratio = Math.floor((prev.exchangeRate / cur.exchangeRate) * 100);
+          return cur;
         })
-
-        const firstEx = document.querySelector('#first-example');
-        // firstEx.innerHTML = `
-        //   <table>
-        //     <thead>
-        //       <tr>
-        //         <th>
-        //           Date
-        //         </th>
-        //         ${res.map(e => `<th>${e.date}</th>`).join('')}
-        //         <th>
-        //           Ratio, %
-        //         </th>
-        //       </tr>
-        //     </thead>
-        //     <tbody>
-        //       <tr>
-        //         <td>
-        //           1 USD
-        //         </td>
-        //           ${res.map(e => `<td>${e.exchangeRate}</td>`).join('')}
-        //         <td>
-        //           ${ratio}
-        //         </td>
-        //       </tr>
-        //     </tbody>
-        //   </table>
-        // `;
+        const secondEx = document.querySelector('#second-example');
+        secondEx.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Rate, UAH</th>
+                <th>Ratio, %</th>
+              </tr>
+            </thead>
+            <tbody>
+            ${res.map((e, i) => {
+              if (i === n) return;
+              return `<tr>
+                <td>${e.date}</td>
+                <td>${e.exchangeRate}</td>
+                <td>${e.ratio}</td>
+              </tr>`
+              }).join('')
+            }
+            </tbody>
+          </table>
+        `;
       })
   })(5);
 }
