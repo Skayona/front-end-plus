@@ -22,7 +22,7 @@ window.onload = function () {
       .then(res => {
         let ratio;
         res.reduce((prev, cur) => {
-          ratio = Math.floor((cur.exchangeRate / prev.exchangeRate) * 100);
+          ratio = ((prev.exchangeRate / cur.exchangeRate) * 100).toFixed(2);
         })
         const firstEx = document.querySelector('#first-example');
         firstEx.innerHTML = `

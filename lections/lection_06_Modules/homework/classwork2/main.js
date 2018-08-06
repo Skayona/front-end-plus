@@ -27,7 +27,7 @@ window.onload = function () {
       ))
       .then(res => {
         res.reduce((prev, cur, i) => {
-          res[i - 1].ratio = Math.floor((prev.exchangeRate / cur.exchangeRate) * 100);
+          res[i - 1].ratio = ((prev.exchangeRate / cur.exchangeRate) * 100).toFixed(2);
           return cur;
         })
         const secondEx = document.querySelector('#second-example');
