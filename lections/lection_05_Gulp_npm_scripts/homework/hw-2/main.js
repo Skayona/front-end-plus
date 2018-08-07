@@ -2,8 +2,9 @@ let fs = require('fs');
 let path = require('path');
 let initilaDir = './img';
 let finalDir = './new-img';
-let name = 'image_FR_';
-let map = [2, 1, 4, 3];
+let env = process.env;
+let name = `image_${env.COUNTRY}_`;
+let map = JSON.parse(env.MAP);
 let imgOrder = new Object();
 
 

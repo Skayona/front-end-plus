@@ -4,7 +4,7 @@ let args = process.env;
 console.log('lection_5');
 
 console.log(new Animal());
-console.log(process.env);
+// console.log(process.env);
 
 if (args.env == 'production') {
     console.log('YES');
