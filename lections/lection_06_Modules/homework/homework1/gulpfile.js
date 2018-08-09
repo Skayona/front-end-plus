@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
+const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const obfuscate = require('gulp-obfuscate');
 const browserSync = require('browser-sync');
@@ -41,9 +42,12 @@ gulp.task('js', () => {
   console.log('---------- JS  ----------');
 
   return gulp.src('./src/js/**/*.js')
-    .pipe(concat('bundle.js'))
-    .pipe(uglify())
-    .pipe(obfuscate())
+    // .pipe(babel({
+    //   presets: ['env']
+    // }))
+    .pipe(concat('bundle.min.js'))
+    // .pipe(uglify())
+    // .pipe(obfuscate())
     .pipe(gulp.dest('./build/js/'))
     .pipe(reload({
       stream: true
