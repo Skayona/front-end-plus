@@ -13,30 +13,29 @@ const imageminMozjpeg = require('imagemin-mozjpeg');
 const svgo = require('gulp-svgo');
 const rename = require('gulp-rename');
 
+gulp.task('html', () => {
+  console.log('---------- SASS  ----------');
+  return gulp.src('./src/html/*.html')
+    .pipe(gulp.dest('./build/'))
+    .pipe(reload({
+      stream: true
+    }));
+})
 
 gulp.task('sass', () => {
   console.log('---------- SASS  ----------');
 
   return gulp.src(['./src/sass/**/*.sass', './src/sass/**/*.scss'])
     .pipe(sass())
-    .pipe(gulp.dest('./src/css'))
-    .pipe(reload({
-      stream: true
-    }));
-});
-
-gulp.task('css', ['sass'], () => {
-  console.log('---------- CSS  ----------');
-
-  return gulp.src('./src/css/**/*.css')
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest('./src/bin/'))
+    .pipe(gulp.dest('./build/css/'))
     .pipe(reload({
       stream: true
     }));
 });
+
 
 gulp.task('js', () => {
   console.log('---------- JS  ----------');
@@ -45,17 +44,17 @@ gulp.task('js', () => {
     .pipe(concat('bundle.js'))
     .pipe(uglify())
     .pipe(obfuscate())
-    .pipe(gulp.dest('./src/bin/'))
+    .pipe(gulp.dest('./build/js/'))
     .pipe(reload({
       stream: true
     }));
 });
 
-gulp.task('browserSync', ['css', 'js'], () => {
+gulp.task('browserSync', ['html', 'sass', 'js'], () => {
   console.log('---------- BROWSER SYNC  ----------');
   browserSync.init({
     server: {
-      baseDir: './src'
+      baseDir: './build'
     },
     middleware: [
       historyFallback()
@@ -65,38 +64,24 @@ gulp.task('browserSync', ['css', 'js'], () => {
     notify: false
   })
 
-  gulp.watch(['./src/sass/**/*.sass', './src/sass/**/*.scss'], ['css']);
+  gulp.watch(['./src/sass/**/*.sass', './src/sass/**/*.scss'], ['sass']);
   gulp.watch('./src/js/**/*.js', ['js']);
+  gulp.watch('./src/html/**/*.html', ['html']);
 });
 
 gulp.task('watch', ['browserSync']);
 
-gulp.task('build', ['sass', 'css', 'js'], () => {
-  console.log('---------- CLEAN BUILD ----------');
-  del.sync('build');
-
+gulp.task('build', ['html', 'sass', 'js'], () => {
   console.log('---------- BUILD  ----------');
 
-  gulp.src('./src/*.html')
-    .pipe(gulp.dest('./build/'))
-
-  gulp.src(['./src/bin/*.css'])
-    .pipe(gulp.dest('./build/bin'))
-
-  gulp.src('./src/bin/*.js')
-    .pipe(gulp.dest('./build/bin'))
-
-  gulp.src(['./src/img/**'])
-    .pipe(imagemin([
-      imagemin.gifsicle(),
-      imageminMozjpeg(),
-      imageminPngquant()
-    ], {
-      verbose: true
-    }))
-    .pipe(svgo())
-    .pipe(gulp.dest('./build/img'))
-
-  gulp.src(['./src/fonts/**'])
-    .pipe(gulp.dest('./build/fonts'))
+  // gulp.src(['./src/img/**'])
+  //   .pipe(imagemin([
+  //     imagemin.gifsicle(),
+  //     imageminMozjpeg(),
+  //     imageminPngquant()
+  //   ], {
+  //     verbose: true
+  //   }))
+  //   .pipe(svgo())
+  //   .pipe(gulp.dest('./build/img'))
 });
