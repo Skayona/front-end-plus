@@ -7,13 +7,8 @@
 
     fetch(API_URL(lat, lng))
       .then(response => response.json())
-      .then(result => {
-        console.log(result);
-
-        currentWeather(result);
-      }
-    )
-
+      .then(result => currentWeather(result))
+      .then(() => initMap(lat, lng))
   }
 
   function error(err) {

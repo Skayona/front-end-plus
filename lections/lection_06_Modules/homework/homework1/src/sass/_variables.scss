@@ -1,0 +1,7 @@
+$gap: 8px;
+$section-gap: (sm: 3*$gap, md: 5*$gap, lg: 7*$gap, xl: 9*$gap);
+$grid-breakpoints: (sm: 0, md: 768px, lg: 992px, xl: 1200px);
+$container-max-widths: (md: 744px, lg: 920px, xl: 1120px);
+
+$grey: darken(#ccc, 15%);
+$black: #505050;

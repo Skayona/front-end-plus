@@ -1,0 +1,51 @@
+html {
+  color: $black;
+}
+.container {
+  padding-left: 2*$gap;
+  padding-right: 2*$gap;
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    max-width: map-get($container-max-widths, md);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  @media (min-width: map-get($grid-breakpoints, lg)) {
+    max-width: map-get($container-max-widths, lg);
+  }
+  @media (min-width: map-get($grid-breakpoints, xl)) {
+    max-width: map-get($container-max-widths, xl);
+  }
+}
+
+.section {
+  padding-top: map-get($section-gap, sm);
+  padding-bottom: map-get($section-gap, sm);
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    padding-top: map-get($section-gap, md);
+    padding-bottom: map-get($section-gap, md);
+  }
+  @media (min-width: map-get($grid-breakpoints, lg)) {
+    padding-top: map-get($section-gap, lg);
+    padding-bottom: map-get($section-gap, lg);
+  }
+  @media (min-width: map-get($grid-breakpoints, xl)) {
+    padding-top: map-get($section-gap, xl);
+    padding-bottom: map-get($section-gap, xl);
+  }
+}
+
+.map {
+  padding-top: 50%;
+  @media (min-width: map-get($grid-breakpoints, lg)) {
+    height: 100%;
+    padding-top: initial;
+  }
+}
+
+time,
+.time {
+  font-size: 0.9rem;
+  font-weight: 100;
+}

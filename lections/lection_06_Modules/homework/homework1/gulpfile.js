@@ -13,6 +13,7 @@ const imageminPngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const svgo = require('gulp-svgo');
 const rename = require('gulp-rename');
+const notify = require('gulp-notify');
 
 gulp.task('html', () => {
   console.log('---------- SASS  ----------');
@@ -27,7 +28,12 @@ gulp.task('sass', () => {
   console.log('---------- SASS  ----------');
 
   return gulp.src(['./src/sass/**/*.sass', './src/sass/**/*.scss'])
-    .pipe(sass())
+    .pipe(sass().on('error', notify.onError(function (err) {
+      return {
+        title: "SASS error!",
+        message: err.message
+      }
+    })))
     .pipe(rename({
       suffix: '.min'
     }))

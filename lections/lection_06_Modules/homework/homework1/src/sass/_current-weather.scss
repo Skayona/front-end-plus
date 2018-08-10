@@ -1,0 +1,59 @@
+.current-weather {
+  &-wrap {
+    @media (min-width: map-get($grid-breakpoints, lg)) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2*$gap;
+    }
+  }
+  &__title {
+    >.time {
+      display: block;
+    }
+  }
+  &__main {}
+  &__details {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+    border-collapse: collapse;
+    border: 1px solid $grey;
+    tr {
+      &:nth-child(odd) {
+        background-color: #f9f9f9;
+      }
+    }
+    td {
+      padding: 4px;
+      border: 1px solid $grey;
+      &:first-child {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.weather-main {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  &__img {
+    margin-bottom: 2*$gap;
+    p {
+      margin-bottom: 0;
+    }
+    img {
+      margin: auto;
+    }
+    figcaption {
+      font-size: 0.9rem;
+      color: $grey;
+    }
+  }
+  &__temp {
+    margin-left: 2*$gap;
+    font-size: 3rem;
+    font-weight: 700;
+    color: $grey;
+  }
+}
