@@ -1,0 +1,48 @@
+.events {
+  display: grid;
+  gap: 4*$gap;
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.event {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 3fr;
+  gap: 2*$gap;
+
+  &__img {
+    display: flex;
+    width: 100%;
+    min-width: 100px;
+    overflow: hidden;
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      margin: auto;
+      border: 1px solid $grey;
+    }
+  }
+
+  &__title {
+    margin-bottom: 0;
+  }
+  &__address:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  &__address,
+  .time,
+  &__temp {
+    font-size: 0.85rem;
+    color: $grey;
+  }
+
+  &__description {
+    font-size: 0.95rem;
+  }
+}

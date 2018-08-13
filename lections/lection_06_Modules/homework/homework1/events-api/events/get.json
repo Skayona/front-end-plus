@@ -13,7 +13,7 @@
         "img": "http://kyiv-online.net/wp-content/uploads/2018/07/afisha-kyiv-klub-blahorodnyh-divyts.jpg",
         "price": 350,
         "temp": {
-          "min": 15
+          "min": 26
         }
       },
       {
@@ -59,7 +59,7 @@
         "img": "http://kyiv-online.net/wp-content/uploads/2018/07/afisha-kyiv-kurazh-basar-1.jpg",
         "price": 100,
         "temp": {
-          "max": 35
+          "max": 14
         }
       }, {
         "id": "005",

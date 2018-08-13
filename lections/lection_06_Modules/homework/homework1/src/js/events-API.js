@@ -1,0 +1,1 @@
+const EVENTS_API_URL = 'http://localhost:3780/events';
