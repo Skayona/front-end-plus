@@ -1,0 +1,23 @@
+header {
+  padding-top: 2*$gap;
+  padding-bottom: 2*$gap;
+  background: $black;
+  color: $white;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    > li {
+      &:not(:last-child) {
+        margin-right: $gap;
+      }
+      >a {
+        text-decoration: none;
+        text-transform: uppercase;
+        &.active {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

@@ -49,3 +49,51 @@ time,
   font-size: 0.9rem;
   font-weight: 100;
 }
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+footer {
+  padding-top: 2*$gap;
+  padding-bottom: 2*$gap;
+  background: $black;
+  color: $white;
+}
+
+main {
+  position: relative;
+}
+
+.index-page {
+  height: 100%;
+  background-image: url('../img/weather.png');
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  border-radius: 50%;
+  border: 5px solid $grey;
+  animation: pulse 1.5s linear infinite;
+}
+
+@keyframes pulse{
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
