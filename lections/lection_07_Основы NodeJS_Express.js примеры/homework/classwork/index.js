@@ -6,10 +6,12 @@ let port = 3780;
 let forbidden = false;
 
 function interception(req, res, next) {
-  if (forbidden)
-    return next(new Error());
+  if (forbidden) {
+    next(new Error());
+    return;
+  }
 
-  return next();
+  next();
 }
 
 app.use(interception);
