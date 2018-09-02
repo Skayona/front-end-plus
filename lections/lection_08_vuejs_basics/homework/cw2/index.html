@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="modal" id="form">
+    <step-1 v-bind:name="name" v-bind:email="email" v-if="counter === 1"></step-1>
+    <step-2 v-bind:city="city" v-if="counter === 2"></step-2>
+    <step-3 v-bind:name="name" v-bind:email="email" v-bind:city="city" v-if="counter === 3"></step-3>
+    <button type="button" v-on:click="clickNext" v-if="counter < 3">NEXT</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
