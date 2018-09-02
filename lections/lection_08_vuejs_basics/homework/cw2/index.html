@@ -10,9 +10,18 @@
 
 <body>
   <div class="modal" id="form">
-    <step-1 v-bind:name="name" v-bind:email="email" v-if="counter === 1"></step-1>
-    <step-2 v-bind:city="city" v-if="counter === 2"></step-2>
-    <step-3 v-bind:name="name" v-bind:email="email" v-bind:city="city" v-if="counter === 3"></step-3>
+    <div v-if="counter === 1">
+      <input v-model="name" type="text" name="name" id="name" placeholder="name" />
+      <input v-model="email" type="email" name="email" id="email" placeholder="email" />
+    </div>
+    <div v-if="counter === 2">
+      <input v-model="city" type="text" name="city" id="city" placeholder="city" />
+    </div>
+    <div v-if="counter === 3">
+      <p>name: {{name}}</p>
+      <p>email: {{email}}</p>
+      <p>city: {{city}}</p>
+    </div>
     <button type="button" v-on:click="clickNext" v-if="counter < 3">NEXT</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
