@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+.table {
+  width: 100%;
+}
+.table__body {
+  border: 1px solid;
+}
+.co-worker {
+  display: flex;
+}
+.co-worker__col{
+  border: 1px solid;
+}
+.co-worker__col--id {
+  width: 100px;
+  flex: 1 1 100px;
+}
+
+.co-worker__col--name,
+.co-worker__col--age,
+.co-worker__col--address {
+  min-width: 200px;
+  width: 100%;
+  max-width: calc((100% - 160px)/3);
+  flex: 1 1 calc((100% - 160px)/3);
+}
+
+.co-worker__col--del {
+  width: 60px;
+  flex: 1 1 60px;
+}

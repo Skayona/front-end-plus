@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>VUE LEARNING</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+  <div class="table" id="table">
+    <div class="table__header">
+      <h1 class="table__title">
+        Учет сотрудников
+      </h1>
+      <button @click="addCoworker()">
+        Добавить сотрудника
+      </button>
+    </div>
+    <div class="table__body">
+      <div class="co-worker">
+        <div class="co-worker__col co-worker__col--id">ID</div>
+        <div class="co-worker__col co-worker__col--name">NAME</div>
+        <div class="co-worker__col co-worker__col--age">AGE</div>
+        <div class="co-worker__col co-worker__col--address">ADDRESS</div>
+        <div class="co-worker__col co-worker__col--del"></div>
+      </div>
+      <co-worker v-for="member in members" ></co-worker>
+    </div>
+
+  </div>
+</body>
+<script src="main.js"></script>
+</html>
