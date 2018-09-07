@@ -12,6 +12,8 @@ body {
 
 .table {
   width: 100%;
+  max-width: 960px;
+  margin: auto;
 }
 .table__body {
   border: 1px solid;

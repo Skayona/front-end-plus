@@ -21,7 +21,7 @@
         Добавить сотрудника
       </button>
     </div>
-    <div class="table__body">
+    <div class="table__body" v-if="members.length">
       <div class="co-worker">
         <div class="co-worker__col co-worker__col--id">ID</div>
         <div class="co-worker__col co-worker__col--name">NAME</div>
@@ -29,10 +29,12 @@
         <div class="co-worker__col co-worker__col--address">ADDRESS</div>
         <div class="co-worker__col co-worker__col--del"></div>
       </div>
-      <co-worker v-for="member in members" ></co-worker>
+      <div v-for="(member, index) in members" v-bind:index="index" :is="member" v-on:delete-member="deletes">
+      </div>
     </div>
 
   </div>
 </body>
 <script src="main.js"></script>
+
 </html>
