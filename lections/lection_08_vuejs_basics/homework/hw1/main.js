@@ -13,10 +13,8 @@ Vue.component(
     methods: {
       addName() {
         console.log('addName');
-
       },
       deleteOPtions() {
-
         if (this.id.length ||
           this.name.length ||
           this.age.length ||
@@ -47,8 +45,9 @@ const vm = new Vue({
       this.members.push('co-worker');
     },
     deletes(a, i) {
-      a();
-      this.members.splice(i, 1);
+      if(a()) {
+        this.members.splice(i, 1);
+      }
     }
   }
 })
