@@ -13,7 +13,7 @@ Vue.component(
     methods: {
       addName() {
         console.log('addName');
-        
+
       },
       deleteOPtions() {
 
@@ -21,7 +21,6 @@ Vue.component(
           this.name.length ||
           this.age.length ||
           this.address.length) {
-          console.log('data');
           return false;
         }
 
@@ -33,8 +32,7 @@ Vue.component(
         id: '',
         name: '',
         age: '',
-        address: '',
-        toShow: true
+        address: ''
       }
     }
 
