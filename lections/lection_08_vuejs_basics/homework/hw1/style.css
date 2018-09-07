@@ -6,15 +6,25 @@
 body {
   margin: 0;
   width: 100%;
-  min-height: 100vh;
 }
 
+.modal-is-open {
+  overflow: hidden;
+}
 
 .table {
   width: 100%;
   max-width: 960px;
   margin: auto;
 }
+.table__header {
+  margin-bottom: 16px;
+}
+
+.table__title {
+  margin-top: 0;
+}
+
 .table__body {
   border: 1px solid;
 }
@@ -41,4 +51,45 @@ body {
 .co-worker__col--del {
   width: 60px;
   flex: 1 1 60px;
+}
+
+.co-worker__col--del button {
+  width: 100%;
+  text-align: center;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0, 0.2);
+}
+
+.modal__content {
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+}
+
+.modal__content label {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.modal__content label > span {
+  width: 40%;
+}
+
+.modal__content label > input,
+.modal__content label > textarea {
+  width: 60%;
+}
+
+.modal__btn {
+  text-align: right;
 }
