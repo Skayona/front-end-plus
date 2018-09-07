@@ -1,33 +1,31 @@
 Vue.component(
   'edit-modal', {
-    props: ['member', 'modal'],
+    props: ['member'],
     template: `
-      <div class="modal" v-if="modal">
-        <div class="modal__content">
-          <h2>{{title}} данные</h2>
-          <label>
-            <span>ID:</span>
-            <input v-model="member.id" type="text" />
-          </label>
-          <label>
-            <span>Name:</span>
-            <input v-model="member.name" type="text" />
-          </label>
-          <label>
-            <span>Age:</span>
-            <input v-model="member.age" type="number" />
-          </label>
-          <label>
-            <span>Address:</span>
-            <textarea v-model="member.address">
-            </textarea>
-          </label>
-          <div class="modal__btn">
-            <button type="button">cancel</button>
-            <button type="button">ok</button>
-          </div>
+      <section>
+        <h2>{{title}} данные</h2>
+        <label>
+          <span>ID:</span>
+          <input v-model="member.id" type="text" />
+        </label>
+        <label>
+          <span>Name:</span>
+          <input v-model="member.name" type="text" />
+        </label>
+        <label>
+          <span>Age:</span>
+          <input v-model="member.age" type="number" />
+        </label>
+        <label>
+          <span>Address:</span>
+          <textarea v-model="member.address">
+          </textarea>
+        </label>
+        <div class="modal__btn">
+          <button type="button" @click="$emit('close-modal')">ОТМЕНА</button>
+          <button type="button" @click="$emit('save-data')">СОХРАНИТЬ</button>
         </div>
-      </div>
+      </section>
     `,
     data: function () {
       return {
@@ -37,7 +35,7 @@ Vue.component(
     methods: {
       getTitle() {
         for (let prop in this.member) {
-          if (!this.member[prop].toString().length) {
+          if (this.member[prop].toString().length && prop !== 'index') {
             return 'Редактировать';
           }
         }
@@ -47,79 +45,98 @@ Vue.component(
   }
 )
 
+
 Vue.component(
   'co-worker', {
-    props: ['index'],
-    template: `<div class="co-worker" :id="index" @click="$emit('open-editor', $event, addData)">
-      <div class="co-worker__col co-worker__col--id"> {{ id }} </div>
-      <div class="co-worker__col co-worker__col--name"> {{ name }} </div>
-      <div class="co-worker__col co-worker__col--age"> {{ age }} </div>
-      <div class="co-worker__col co-worker__col--address"> {{ address }} </div>
-      <div class="co-worker__col co-worker__col--del">
-        <button type="button" @click="$emit('delete-member', deleteOptions, index)">delete</button>
+    props: ['index', 'member'],
+    template: `<div class="co-worker" :id="index" @click="$emit('open-editor', $event, member, index)">
+      <div class="co-worker__col co-worker__col--id"> {{ member.id }} </div>
+      <div class="co-worker__col co-worker__col--name"> {{ member.name }} </div>
+      <div class="co-worker__col co-worker__col--age"> {{ member.age }} </div>
+      <div class="co-worker__col co-worker__col--address">
+      <pre>{{ member.address }}</pre>
       </div>
-    </div>`,
-    methods: {
-      addData() {
-        return {
-          id: this.id,
-          name: this.name,
-          age: this.age,
-          address: this.address
-        }
-      },
-      deleteOptions() {
-        if (this.id.length ||
-          this.name.length ||
-          this.age.length ||
-          this.address.length) {
-          return false;
-        }
-
-        return true;
-      },
-    },
-    data: function () {
-      return {
-        id: '',
-        name: '',
-        age: '',
-        address: ''
-      }
-    }
-
+      <div class="co-worker__col co-worker__col--del">
+        <button type="button" @click="$emit('delete-member', member, index)">УДАЛИТЬ</button>
+      </div>
+    </div>`
   })
+
+
 const vm = new Vue({
   el: '#table',
   data: {
+    body: document.querySelector('body'),
     members: [],
-    value: {},
-    openModal: false
+    temporaryStore: {},
+    modals: {
+      open: false,
+      edit: false,
+      confirm: false
+    }
   },
   methods: {
     addCoworker() {
-      this.members.push('co-worker');
+      this.members.push({
+        template: 'co-worker',
+        data: {
+          id: '',
+          name: '',
+          age: '',
+          address: ''
+        }
+      });
     },
-    deleteMember(allow, i) {
-      if (allow()) {
-        this.members.splice(i, 1);
+    deleteMember(member, i) {
+      for (let prop in member) {
+        if (member[prop].toString().length) {
+          this.temporaryStore.index = i;
+          this.modals.confirm = true;
+          this.fixedBody();
+          return;
+        }
       }
+      this.members.splice(i, 1);
     },
-    openEditModal(e, data) {
+    confirmDelete() {
+      this.members.splice(this.temporaryStore.index, 1);
+      this.temporaryStore = {};
+      this.modals.confirm = false;
+      this.fixedBody();
+    },
+    openEditModal(e, member, i) {
       if (e.target.tagName === 'BUTTON') {
         return;
       }
-      let member = data();
-      if (!member) return;
-      this.value = member;
-      this.openModal = true;
-
+      this.modals.edit = true;
+      for (let prop in member) {
+        this.temporaryStore[prop] = member[prop]
+      }
+      this.temporaryStore.index = i;
+      this.fixedBody();
     },
     fixedBody() {
-      if (this.openModal) {
-        console.log('+');
-
-        return 'modal-is-open';
+      this.modals.open = !this.modals.open;
+      this.body.classList.toggle('modal-is-open');
+    },
+    saveData() {
+      this.fixedBody();
+      const i = this.temporaryStore.index;
+      const member = this.members[i].data;
+      for (let prop in member) {
+        member[prop] = this.temporaryStore[prop];
+      }
+      this.temporaryStore = {};
+      this.modals.edit = false;
+    },
+    closeModal() {
+      this.fixedBody();
+      if (this.modals.edit) {
+        this.temporaryStore = {};
+        this.modals.edit = false;
+      }
+      if (this.modals.confirm) {
+        this.modals.confirm = false;
       }
     }
   }
