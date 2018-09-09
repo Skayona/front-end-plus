@@ -42,7 +42,13 @@ let vm = new Vue({
   data: {
     cities: CITIES,
     countries: COUNTRIES,
-    city: 'не выбрано',
+    city: CITIES['UA'][0],
     country: 'UA'
   }
 });
+
+vm.$watch('country', function(curr, prev) {
+  if (curr !== prev) {
+    this.city = this.cities[curr][0];
+  }
+})
