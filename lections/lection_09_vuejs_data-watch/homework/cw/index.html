@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <!-- ver 1 -->
+  <!-- <div id="app">
+    <select v-model="country">
+      <option disabled value="">Выберите один из вариантов</option>
+      <option v-for="location in locations" v-bind:value="location.country"> {{location.country}}</option>
+    </select>
+
+    <select v-model="city" v-if="selectedCountry()">
+      <option disabled value="">Выберите один из вариантов</option>
+      <option v-for="city in selectedCountry().cities" v-bind:value="city"> {{city}}</option>
+    </select>
+    <p>Country: {{country}}</p>
+    <p>City: {{city}}</p>
+  </div> -->
+  <div id="app">
+    <select v-model="country">
+      <option v-for="(selCountry, index) in countries" v-bind:value="index"> {{selCountry}}</option>
+    </select>
+
+    <select v-model="city">
+      <option v-for="selCity in cities[country]" v-bind:value="selCity"> {{selCity}}</option>
+    </select>
+    <p>Country: {{countries[country]}}</p>
+    <p>City: {{city}}</p>
+
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>
