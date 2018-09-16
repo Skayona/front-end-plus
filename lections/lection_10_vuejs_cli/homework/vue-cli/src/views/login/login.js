@@ -7,32 +7,27 @@ export default {
   data() {
     return {
       login: '',
+      error: false
     }
   },
   computed: {
 
   },
   mounted() {
-
+    console.log(this.$route);
   },
   methods: {
     onLogin() {
       switch (this.login) {
         case 'Petya':
-          console.log('Petya');
-          // router.push('/courses');
-          break;
         case 'Vasya':
-          console.log('Vasya');
+          this.error = false;
+          router.push(`/courses/${this.login.toLowerCase()}`);
           break;
         default:
-          console.log('Error');
-          return;
-
-
-
+          this.error = true;
+          break;
       }
-    router.push(`/courses/${this.login}`);
     }
   }
 }

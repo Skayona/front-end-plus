@@ -1,3 +1,13 @@
 .courses {
+  h1 {
+    text-align: center;
+    grid-column: 1/-1;
+  }
+  h1 > span {
+    text-transform: capitalize;
+  }
 
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }

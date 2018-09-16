@@ -1,6 +1,8 @@
 
 <section class="courses">
-  <h1>courses Component</h1>
-{{ $route.params.name }}
+  <h1>Courses for <span>{{studend}}</span></h1>
+  <template v-for="course of courses">
+    <course v-bind:name="course.title" v-bind:description="course.desc"></course>
+  </template>
 </section>
 

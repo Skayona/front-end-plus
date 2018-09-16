@@ -1,7 +1,7 @@
 export default {
   name: 'course',
   components: {},
-  props: [],
+  props: ['name', 'description'],
   data () {
     return {
 

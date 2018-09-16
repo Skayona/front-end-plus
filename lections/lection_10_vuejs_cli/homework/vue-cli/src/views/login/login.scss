@@ -1,5 +1,5 @@
 .login {
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
 
   &-form {
@@ -7,19 +7,44 @@
     max-width: 320px;
     margin: auto;
 
-    label,
-    input,
-    button {
-      display: block;
+    > * {
       margin-bottom: 1rem;
     }
+
     label,
     input {
       width: 100%;
     }
 
+    label {
+      display: inline-flex;
+
+      >span {
+        display: inline-block;
+        margin-left: auto;
+
+        &.error {
+          font-size: 0.75em;
+          color: red;
+        }
+      }
+    }
+
+    input {
+      display: block;
+      padding: 4px 8px;
+      border: 1px solid rgba(#000, 0.5);
+      box-shadow: inset 0 0 0 100px #fff;
+
+      &.error {
+        border: 1px solid red;
+        color: red;
+      }
+    }
+
     button {
-      margin: auto;
+      display: block;
+      margin-left: auto;
     }
   }
 
