@@ -1,0 +1,27 @@
+.login {
+  min-height: 100vh;
+  display: flex;
+
+  &-form {
+    width: 100%;
+    max-width: 320px;
+    margin: auto;
+
+    label,
+    input,
+    button {
+      display: block;
+      margin-bottom: 1rem;
+    }
+    label,
+    input {
+      width: 100%;
+    }
+
+    button {
+      margin: auto;
+    }
+  }
+
+
+}
