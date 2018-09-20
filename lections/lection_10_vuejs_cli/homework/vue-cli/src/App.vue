@@ -2,7 +2,6 @@
   <div id="app">
     <div id="nav" v-if="$route.name !== 'login'">
       <router-link to="/">HOME</router-link>
-      <!-- <router-link to="/">HOME</router-link> -->
     </div>
     <router-view/>
   </div>
