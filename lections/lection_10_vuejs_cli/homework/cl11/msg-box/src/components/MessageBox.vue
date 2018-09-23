@@ -20,10 +20,20 @@ export default {
     msg: {
       deep: true,
       handler: function (newMsg, oldMsg) {
+        let list = this.list.map(e => e)
+        list.unshift(newMsg)
+        this.list = []
         let ms = newMsg.type === 'error' ? 10000 : 5000
         newMsg.id = ++this.counter
         newMsg.remove = false
-        newMsg.type === 'error' ? this.list.unshift(newMsg) : this.list.push(newMsg)
+        let errMsgs = list.filter(item => item.type === 'error')
+        let otherMsgs = list.filter(item => item.type !== 'error')
+        if (errMsgs.length) {
+          this.list = [...this.list, ...errMsgs]
+        }
+        if (otherMsgs.length) {
+          this.list = [...this.list, ...otherMsgs]
+        }
         setTimeout(() => {
           newMsg.remove = true
         }, ms)
