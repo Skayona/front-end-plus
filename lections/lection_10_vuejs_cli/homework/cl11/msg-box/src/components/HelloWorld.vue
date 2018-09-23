@@ -1,11 +1,11 @@
 <template>
   <section class="msg-box">
-      <input type="text" v-model="msg" placeholder="enter msg text"/>
+      <input type="text" v-model="msg.text" placeholder="enter msg text" v-bind:class="msg.class"/>
       <div class="msg-box__btns">
-        <button v-on:click="data={text: msg, type: 'info'},msg=null">info</button>
-        <button v-on:click="data={text: msg, type: 'success'},msg=null">success</button>
-        <button v-on:click="data={text: msg, type: 'error'},msg=null">error</button>
-        <button v-on:click="data={text: msg},msg=null">no type</button>
+        <button v-on:click="editMsg('info')">info</button>
+        <button v-on:click="editMsg('success')">success</button>
+        <button v-on:click="editMsg('error')">error</button>
+        <button v-on:click="editMsg()">no type</button>
       </div>
       <h1 class="msg-box__title">Message box</h1>
       <MessageBox v-bind:msg="data"></MessageBox>
@@ -26,7 +26,26 @@ export default {
         text: null,
         type: null
       },
-      msg: null
+      msg: {
+        text: null,
+        class: null
+      }
+    }
+  },
+  methods: {
+    editMsg (type = null) {
+      if (typeof (this.msg.text) !== 'string') {
+        this.msg.class = 'error'
+        return
+      }
+      this.data = {
+        text: this.msg.text,
+        type: type
+      }
+      this.msg = {
+        text: null,
+        class: null
+      }
     }
   }
 }
@@ -51,5 +70,8 @@ a {
 input {
   margin-bottom: 8px;
   padding: 2px 4px;
+}
+input.error {
+  border-color: red
 }
 </style>

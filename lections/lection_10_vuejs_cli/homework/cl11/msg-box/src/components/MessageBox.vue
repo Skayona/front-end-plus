@@ -29,10 +29,10 @@ export default {
         newMsg.remove = false
         let errMsgs = list.filter(item => item.type === 'error')
         let otherMsgs = list.filter(item => item.type !== 'error')
-        if (errMsgs.length) {
+        if (errMsgs) {
           this.list = [...this.list, ...errMsgs]
         }
-        if (otherMsgs.length) {
+        if (otherMsgs) {
           this.list = [...this.list, ...otherMsgs]
         }
         setTimeout(() => {
