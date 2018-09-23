@@ -1,10 +1,11 @@
 <template>
   <section class="msg-box">
+      <input type="text" v-model="msg" placeholder="enter msg text"/>
       <div class="msg-box__btns">
-        <button v-on:click="data={text: 'btn 1', type: 'info'}">btn 1</button>
-        <button v-on:click="data={text: 'btn 2', type: 'success'}">btn 2</button>
-        <button v-on:click="data={text: 'btn 3', type: 'error'}">btn 3</button>
-        <button v-on:click="data={text: 'btn 4 (no type)'}">btn 4</button>
+        <button v-on:click="data={text: msg, type: 'info'},msg=null">info</button>
+        <button v-on:click="data={text: msg, type: 'success'},msg=null">success</button>
+        <button v-on:click="data={text: msg, type: 'error'},msg=null">error</button>
+        <button v-on:click="data={text: msg},msg=null">no type</button>
       </div>
       <h1 class="msg-box__title">Message box</h1>
       <MessageBox v-bind:msg="data"></MessageBox>
@@ -22,9 +23,10 @@ export default {
   data () {
     return {
       data: {
-        text: 'Some text',
-        type: 'error'
-      }
+        text: null,
+        type: null
+      },
+      msg: null
     }
   }
 }
@@ -45,5 +47,9 @@ li {
 }
 a {
   color: #42b983;
+}
+input {
+  margin-bottom: 8px;
+  padding: 2px 4px;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="msg-box-container" v-if="list.length">
-    <p v-for="(item, id) of list" :key="id" v-bind:class="msgClass(item.type)">
+    <button @click="list=[]">close all</button>
+    <p v-for="(item, id) of list" :key="id" v-bind:class="msgClass(item.type)" @click="removeMsg(item.id)">
       {{item.text}}
     </p>
   </div>
@@ -48,6 +49,9 @@ export default {
   methods: {
     msgClass (type) {
       return type || 'info'
+    },
+    removeMsg (id) {
+      this.list = this.list.filter(e => e.id !== id)
     }
   }
 }
@@ -75,5 +79,10 @@ export default {
   .msg-box-container {
     max-width: 768px;
     margin: auto;
+  }
+  button {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 8px;
   }
 </style>
