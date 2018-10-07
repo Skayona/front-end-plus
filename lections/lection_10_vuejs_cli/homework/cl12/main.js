@@ -6,25 +6,26 @@ var store = {
   },
   price: 69,
   btnTitle: {
-    desktop: 'D btn',
-    mobile: 'M btn'
+    desktop: 'Change to mobile view',
+    mobile: 'Change to desktop view'
   }
 };
 
 Vue.component('banner-config', {
   props: ['type', 'title', 'price', 'btnTitle', 'bg'],
   template: `
-    <section v-bind:style="{background: bgImage}">
+    <div v-bind:style="{background: bgImage}" class="banner">
       <h1>{{title}}</h1>
-      <div>
+      <div class="banner__price">
         <p>Price: {{price}}$</p>
-        <button type="button">{{btnTitle[type]}}</button>
+        <button type="button" @click="$emit('change-view')">{{btnTitle[type]}}</button>
       </div>
-    </section>
+    </div>
   `,
   computed: {
     bgImage() {
-      if (this.bg[this.type] && this.bg[this.type].length) {
+      const bg = this.bg[this.type];
+      if (bg && bg.length) {
         return `url(${this.bg[this.type]})`
       }
       return `#ccc`;
@@ -38,5 +39,14 @@ const app = new Vue({
   data: {
     store,
     type: 'desktop'
+  },
+  methods: {
+    changeType() {
+      if (this.type === 'desktop') {
+        this.type = 'mobile';
+      } else {
+        this.type = 'desktop';
+      }
+    }
   }
 });

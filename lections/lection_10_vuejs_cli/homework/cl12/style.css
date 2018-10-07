@@ -1,0 +1,40 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;;
+}
+
+body {
+  margin: 0 auto;
+}
+
+.banner {
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.banner.desktop::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.banner > h1 {
+  text-align: center;
+}
+
+.banner.desktop .banner__price {
+  text-align: right;
+}
+
+.banner.mobile {
+  display: flex;
+  justify-content: space-between;
+}
