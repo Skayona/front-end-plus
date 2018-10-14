@@ -12,7 +12,14 @@ function compare(source, data) {
   }
 }
 
+function getByKey(source, key) {
+  if (!source || !key) return;
+
+  return source[key];
+}
+
 module.exports = {
   sumList,
-  compare
+  compare,
+  getByKey
 }

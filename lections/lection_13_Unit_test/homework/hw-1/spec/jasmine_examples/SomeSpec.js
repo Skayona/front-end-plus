@@ -22,6 +22,7 @@ describe("Some", function () {
 
   describe("compare", function () {
     beforeEach(function () {});
+
     it("should be return null", function () {
       var resp = some.compare();
 
@@ -46,5 +47,33 @@ describe("Some", function () {
       expect(resp).toEqual(true);
     })
 
+  })
+
+  describe("getByKey", function () {
+    beforeEach(function () {});
+
+    it("should be return undefined", function () {
+      var resp = some.getByKey();
+
+      expect(resp).toEqual(undefined);
+    })
+
+    it("should be return undefined", function () {
+      var resp = some.getByKey({});
+
+      expect(resp).toEqual(undefined);
+    })
+
+    it("should be return undefined", function () {
+      var resp = some.getByKey({}, 'key');
+
+      expect(resp).toEqual(undefined);
+    })
+
+    it("should be return source[key]", function () {
+      var resp = some.getByKey({'key': 10}, 'key');
+
+      expect(resp).toEqual(10);
+    })
   })
 });
