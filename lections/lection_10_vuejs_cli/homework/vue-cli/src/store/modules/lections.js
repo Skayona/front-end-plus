@@ -14,8 +14,8 @@ const getters = {
 
 // actions
 const actions = {
-  async getData({ commit }, user)  {
-    await DATASERVICE.fetch(URL(user)).then(res => {
+   getData({ commit }, user)  {
+     DATASERVICE.fetch(URL(user)).then(res => {
       commit('setLections', res)
     });
   }
