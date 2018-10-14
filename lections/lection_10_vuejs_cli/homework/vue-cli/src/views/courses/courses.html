@@ -1,7 +1,6 @@
 <section class="courses">
   <h1>Courses for <span>{{studend}}</span></h1>
   <template v-for="course of courses">
-    <course v-bind:name="course.title" v-bind:description="course.desc"></course>
+    <course v-bind:name="course.title" v-bind:description="course.desc" v-bind:id="course.id" v-bind:favorites="course.favorites"></course>
   </template>
 </section>
-

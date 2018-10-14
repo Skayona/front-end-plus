@@ -1,5 +1,5 @@
-<label v-bind:for="'course'" class="course">
-  <input type="checkbox" id="course" />
+<label v-bind:for="id" class="course" v-bind:class="getFavClass">
+  <input type="checkbox" v-bind:id="id" @click="toggleFav" />
   <section>
     <h1>{{name}}</h1>
     <p>{{description}}</p>

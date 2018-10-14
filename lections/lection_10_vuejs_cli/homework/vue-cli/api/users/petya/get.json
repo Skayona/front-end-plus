@@ -1,13 +1,21 @@
 [{
   "title": "PETYA1",
-  "desc": "There are technical reasons behind this restriction - it eliminates a class of edge cases in the dependency tracking system, and also makes Vue instances play nicer with type checking systems. But there is also an important consideration in terms of code maintainability: the data object is like the schema for your component’s state. Declaring all reactive properties upfront makes the component code easier to understand when revisited later or read by another developer."
+  "desc": "There are technical reasons behind this restriction - it eliminates a class of edge cases in the dependency tracking system, and also makes Vue instances play nicer with type checking systems. But there is also an important consideration in terms of code maintainability: the data object is like the schema for your component’s state. Declaring all reactive properties upfront makes the component code easier to understand when revisited later or read by another developer.",
+  "id": "p1",
+  "favorites": false
 }, {
   "title": "PETYA2",
-  "desc": "Since Vue doesn’t allow dynamically adding root-level reactive properties, you have to initialize Vue instances by declaring all root-level reactive data properties upfront, even with an empty value:"
+  "desc": "Since Vue doesn’t allow dynamically adding root-level reactive properties, you have to initialize Vue instances by declaring all root-level reactive data properties upfront, even with an empty value:",
+  "id": "p2",
+  "favorites": false
 }, {
   "title": "PETYA3",
-  "desc": "Sometimes you may want to assign a number of properties to an existing object, for example using Object.assign() or _.extend(). However, new properties added to the object will not trigger changes. In such cases, create a fresh object with properties from both the original object and the mixin object:"
+  "desc": "Sometimes you may want to assign a number of properties to an existing object, for example using Object.assign() or _.extend(). However, new properties added to the object will not trigger changes. In such cases, create a fresh object with properties from both the original object and the mixin object:",
+  "id": "p3",
+  "favorites": false
 }, {
   "title": "PETYA4",
-  "desc": "Vue does not allow dynamically adding new root-level reactive properties to an already created instance. However, it’s possible to add reactive properties to a nested object using the Vue.set(object, key, value) method:"
+  "desc": "Vue does not allow dynamically adding new root-level reactive properties to an already created instance. However, it’s possible to add reactive properties to a nested object using the Vue.set(object, key, value) method:",
+  "id": "p4",
+  "favorites": false
 }]

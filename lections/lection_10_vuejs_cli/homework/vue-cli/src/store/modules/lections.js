@@ -14,10 +14,13 @@ const getters = {
 
 // actions
 const actions = {
-   getData({ commit }, user)  {
+   getData({ commit }, user) {
      DATASERVICE.fetch(URL(user)).then(res => {
-      commit('setLections', res)
+      commit('setLections', res);
     });
+  },
+  updateFav({commit}, id) {
+    commit('changeFav', id);
   }
 }
 
@@ -25,6 +28,13 @@ const actions = {
 const mutations = {
   setLections(state, result) {
     state.lections = result;
+  },
+  changeFav(state, id) {
+    state.lections.forEach(lection => {
+      if (lection.id === id) {
+        lection.favorites = !lection.favorites;
+      }
+    });
   }
 }
 
