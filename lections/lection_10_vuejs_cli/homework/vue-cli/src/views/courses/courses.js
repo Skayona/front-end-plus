@@ -7,19 +7,21 @@ export default {
     course
   },
   props: [],
-  data () {
+  data() {
     return {
       studend: this.$route.params.name,
     }
   },
+  created() {
+    this.$store.dispatch('getData', this.studend);
+  },
   computed: {
     courses() {
-      return this.$store.state.lections;
+      return this.$store.getters.getLections;
     }
   },
-  mounted () {
-  },
+  mounted() {},
+  updated() {},
   methods: {
-
   }
 }

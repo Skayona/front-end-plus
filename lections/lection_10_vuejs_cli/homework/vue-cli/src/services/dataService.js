@@ -4,4 +4,6 @@ class DataService {
       .then(response => response.json())
   }
 }
-module.exports = DataService;
+export {
+  DataService
+};

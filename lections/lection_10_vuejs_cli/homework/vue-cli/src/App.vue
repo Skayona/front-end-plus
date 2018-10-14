@@ -24,7 +24,7 @@
 
   #app {
     margin: auto;
-    height: 95%;
+    min-height: 95%;
     width: 95%;
     max-width: 980px;
     padding: 16px;
