@@ -4,7 +4,9 @@ describe("Some", function () {
   describe("findById", function () {
     beforeEach(function () {
       id = 1;
-      newArr = [{id}];
+      newArr = [{
+        id
+      }];
     });
 
     it("should be return array element with current id", function () {
@@ -66,4 +68,60 @@ describe("Some", function () {
       }).toThrowError('str.split is not a function');
     })
   })
+
+  describe('_equals', function () {
+    beforeEach(function () {
+      a1 = 23;
+      b1 = {
+        0: 'd',
+        1: '4',
+        2: '3'
+      };
+
+      a2 = 'd43';
+      b2 = {
+        0: 'd',
+        1: '4',
+        2: 3
+      };
+      simple = true;
+    })
+
+    it('should be return false', function () {
+      let resp = arr._equals(a2, b2);
+
+      expect(resp).toBeFalsy();
+    })
+
+    it('should be return false', function () {
+      let resp = arr._equals(a1, b1, simple);
+
+      expect(resp).toBeFalsy();
+    })
+
+    it('should be return true', function () {
+      let resp = arr._equals(a2, b2, simple);
+
+      expect(resp).toBeTruthy();
+    })
+
+
+    it('should be return true', function () {
+      let resp = arr._equals(a2, b1);
+
+      expect(resp).toBeTruthy();
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        arr._equals();
+      }).toThrowError('Cannot convert undefined or null to object');
+    })
+  })
+
+  // describe('_equals', function () {
+  //   beforeEach(function () {})
+
+  //   it('should be ', function () {})
+  // })
 });

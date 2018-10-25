@@ -24,11 +24,11 @@ this.fromString = function (str, separator) {
 
 this._equals = function (a, b, simple) {
   var key,
-    keys = Object.keys(b);
+      keys = Object.keys(b);
 
   for (var j in keys) {
     key = keys[j];
-    if ((!simple && a[key] !== b[key]) || (simple && a[key] != b[key])) { // eslint-disable-line eqeqeq
+    if ((!simple && a[key] !== b[key]) || (simple && a[key] != b[key])) {
       return false;
     }
   }
