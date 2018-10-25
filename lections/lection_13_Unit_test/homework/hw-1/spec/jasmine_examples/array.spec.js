@@ -339,9 +339,9 @@ describe("Some", function () {
     })
 
     it('should be return undefined', function () {
-       expect(function () {
-         ARR.remove(0);
-       }).toThrowError('array.indexOf is not a function');
+      expect(function () {
+        ARR.remove(0);
+      }).toThrowError('array.indexOf is not a function');
     })
 
     it('should be return undefined', function () {
@@ -349,6 +349,50 @@ describe("Some", function () {
         ARR.remove({});
       }).toThrowError('array.indexOf is not a function');
     })
+  })
+
+  describe('stringStartsWith', function () {
+    beforeEach(function () {
+      prefix = 'prefix';
+      str = `${prefix}fgdfg`;
+    })
+
+    it('should be return true', function () {
+      let resp = ARR.stringStartsWith(str, prefix);
+
+      expect(resp).toBe(true);
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.stringStartsWith(str);
+      }).toThrowError("Cannot read property 'length' of undefined")
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.stringStartsWith();
+      }).toThrowError("Cannot read property 'slice' of undefined")
+    })
+
+    it('should be return false', function () {
+      let resp = ARR.stringStartsWith(str, 4);
+
+      expect(resp).toBe(false);
+    })
+
+    it('should be return false', function () {
+      let resp = ARR.stringStartsWith(['1', '2'], ['1']);
+
+      expect(resp).toBe(false);
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.stringStartsWith(1, '1');
+      }).toThrowError('string.slice is not a function');
+    })
+
   })
 
   // describe('_equals', function () {

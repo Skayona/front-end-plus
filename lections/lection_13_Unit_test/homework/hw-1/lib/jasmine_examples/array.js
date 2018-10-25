@@ -93,6 +93,10 @@ this.remove = function (array, item) {
   }
 };
 
+this.stringStartsWith = function (string, prefix) {
+  return string.slice(0, prefix.length) === prefix;
+};
+
 this.startsWith = function (array, item) {
   var index = array.indexOf(item);
 
@@ -109,9 +113,6 @@ this.startsWith = function (array, item) {
   return undefined;
 };
 
-this.stringStartsWith = function (string, prefix) {
-  return string.slice(0, prefix.length) === prefix;
-};
 
 this.getIndex = function (parent, elem) {
   return Array.prototype.indexOf.call(parent, elem);
