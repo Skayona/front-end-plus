@@ -302,6 +302,54 @@ describe("Some", function () {
     // })
   })
 
+  describe('remove', function () {
+    beforeEach(function () {
+      item = 'two';
+      arr = ['one', item, 'three', undefined];
+    })
+
+    it('should be return [item]', function () {
+      let resp = ARR.remove(arr, item);
+
+      expect(resp).toEqual([item]);
+    })
+
+    it('should be return [undefined]', function () {
+      let resp = ARR.remove(arr);
+
+      expect(resp).toEqual([undefined]);
+    })
+
+    it('should be return undefined', function () {
+      let resp = ARR.remove([]);
+
+      expect(resp).toEqual(undefined);
+    })
+
+    it('should be return undefined', function () {
+      let resp = ARR.remove('string');
+
+      expect(resp).toEqual(undefined);
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.remove('string', 'r');
+      }).toThrowError('array.splice is not a function');
+    })
+
+    it('should be return undefined', function () {
+       expect(function () {
+         ARR.remove(0);
+       }).toThrowError('array.indexOf is not a function');
+    })
+
+    it('should be return undefined', function () {
+      expect(function () {
+        ARR.remove({});
+      }).toThrowError('array.indexOf is not a function');
+    })
+  })
 
   // describe('_equals', function () {
   //   beforeEach(function () {})
