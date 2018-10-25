@@ -90,25 +90,25 @@ describe("Some", function () {
     it('should be return false', function () {
       let resp = ARR._equals(a2, b2);
 
-      expect(resp).toBeFalsy();
+      expect(resp).toBe(false);
     })
 
     it('should be return false', function () {
       let resp = ARR._equals(a1, b1, simple);
 
-      expect(resp).toBeFalsy();
+      expect(resp).toBe(false);
     })
 
     it('should be return true', function () {
       let resp = ARR._equals(a2, b2, simple);
 
-      expect(resp).toBeTruthy();
+      expect(resp).toBe(true);
     })
 
     it('should be return true', function () {
       let resp = ARR._equals(a2, b1);
 
-      expect(resp).toBeTruthy();
+      expect(resp).toBe(true);
     })
 
     it('should be return an error', function () {
@@ -237,7 +237,10 @@ describe("Some", function () {
     })
 
     it('should be return []', function () {
-      let resp = ARR.pluck({1: 1, 2: 2});
+      let resp = ARR.pluck({
+        1: 1,
+        2: 2
+      });
 
       expect(resp).toEqual([]);
     })
@@ -254,6 +257,52 @@ describe("Some", function () {
       expect(resp).toEqual([collection[2].step]);
     })
   })
+
+  describe('getByIndex', function () {
+    beforeEach(function () {})
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.getByIndex();
+      }).toThrowError("Cannot read property 'length' of undefined");
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.getByIndex(null);
+      }).toThrowError("Cannot read property 'length' of null");
+    })
+
+    it('should be return undefined', function () {
+      let resp = ARR.getByIndex(2);
+
+      expect(resp).toBe(undefined);
+    })
+
+    it('should be return 0', function () {
+      let resp = ARR.getByIndex('123456', 6);
+
+      expect(resp).toEqual(0);
+    })
+
+    it('should be return -1', function () {
+      let resp = ARR.getByIndex('', -6);
+
+      expect(resp).toEqual(-1);
+    })
+
+    it('should be return 5', function () {
+      let resp = ARR.getByIndex('123456', 5);
+
+      expect(resp).toEqual(5);
+    })
+
+    // it('should be return', function () {
+    //   let resp = ARR.getByIndex('sad');
+    // })
+  })
+
+
   // describe('_equals', function () {
   //   beforeEach(function () {})
 
