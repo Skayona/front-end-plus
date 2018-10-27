@@ -395,6 +395,50 @@ describe("Some", function () {
 
   })
 
+  describe('startsWith', function () {
+    beforeEach(function () {
+      item = 'item';
+      arr1 = ['some', item, {}];
+      arr2 = `some${item}sfasf`;
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.startsWith();
+      }).toThrowError("Cannot read property 'indexOf' of undefined");
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.startsWith(arr1);
+      }).toThrowError("Cannot read property 'length' of undefined");
+    })
+
+    it('should be return "item"', function () {
+      let resp = ARR.startsWith(arr1, item);
+
+      expect(resp).toEqual(item);
+    })
+
+    it('should be return "item"', function () {
+      let resp = ARR.startsWith(arr2, item);
+
+      expect(resp).toEqual(item);
+    })
+
+    it('should be return an error', function () {
+        expect(function () {
+        ARR.startsWith(arr1, []);
+      }).toThrowError('string.slice is not a function');
+    })
+
+    it('should be return "undefined"', function () {
+      let resp = ARR.startsWith('sdf', item);
+
+      expect(resp).toEqual(undefined);
+    })
+  })
+
   // describe('_equals', function () {
   //   beforeEach(function () {})
 

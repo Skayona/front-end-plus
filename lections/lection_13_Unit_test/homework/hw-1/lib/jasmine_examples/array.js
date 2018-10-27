@@ -113,7 +113,6 @@ this.startsWith = function (array, item) {
   return undefined;
 };
 
-
 this.getIndex = function (parent, elem) {
   return Array.prototype.indexOf.call(parent, elem);
 };
