@@ -615,4 +615,30 @@ describe("Some", function () {
       }]);
     })
   })
+
+  describe('isContain', function () {
+    beforeEach(function () {
+      item = ['two', 3];
+      arr = ['one', item, 'three'];
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.isContain();
+      }).toThrowError('Array.prototype.indexOf called on null or undefined');
+    })
+
+    it('should be retun "false"', function () {
+      let resp = ARR.isContain(arr);
+
+      expect(resp).toBe(false);
+    })
+
+    it('should be retun "true"', function () {
+      let resp = ARR.isContain(arr, item);
+
+      expect(resp).toBe(true);
+    })
+
+  })
 });
