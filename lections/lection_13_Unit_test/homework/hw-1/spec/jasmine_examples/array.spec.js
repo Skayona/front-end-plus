@@ -463,9 +463,64 @@ describe("Some", function () {
       expect(resp).toEqual(1);
     })
   })
-  // describe('_equals', function () {
-  //   beforeEach(function () {})
 
-  //   it('should be ', function () {})
-  // })
+  describe('move', function () {
+    beforeEach(function () {});
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.move();
+      }).toThrowError('angular is not defined');
+    })
+  })
+
+  describe('uniq', function () {
+    beforeEach(function () {
+      arr = ['sa', 'sa', 2];
+    })
+
+    it('should be return filtered array', function () {
+      let resp = ARR.uniq(arr);
+
+      expect(resp).toEqual(['sa', 2]);
+    })
+
+    it('should be return []', function () {
+      let resp = ARR.uniq([]);
+
+      expect(resp).toEqual([]);
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.uniq();
+      }).toThrowError("Cannot read property 'filter' of undefined");
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.uniq(4);
+      }).toThrowError('array.filter is not a function');
+    })
+  })
+
+  describe('intersection', function () {
+    beforeEach(function () {})
+
+    it('should be return []', function () {
+      let resp = ARR.intersection();
+
+      expect(resp).toEqual([]);
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.intersection('one', 2, 3);
+      }).toThrowError('arguments[i].filter is not a function');
+    })
+  })
+
+  describe('difference', function () {
+    beforeEach(function () {})
+  })
 });
