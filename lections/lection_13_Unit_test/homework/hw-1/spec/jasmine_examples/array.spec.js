@@ -551,10 +551,68 @@ describe("Some", function () {
   describe('fromObject', function () {
     beforeEach(function () {})
 
-    it('should be return an error', function() {
+    it('should be return an error', function () {
       expect(function () {
         ARR.fromObject()
       }).toThrowError('angular is not defined');
+    })
+  })
+
+  describe('sortBy', function () {
+    beforeEach(function () {
+      propName = 'name';
+      arr = [{
+        name: 'options'
+      }, 2, 'asd', {
+        get: 'name',
+        name: 'lalaland'
+      }, 'dsd', 4, {
+        name: 'OPTIONS'
+      }];
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.sortBy();
+      }).toThrowError("Cannot read property 'sort' of undefined");
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.sortBy(4);
+      }).toThrowError('arr.sort is not a function')
+    })
+
+    it('should be return []', function () {
+      let resp = ARR.sortBy([]);
+
+      expect(resp).toEqual([]);
+    })
+
+    it('should be return arr sort by desc', function () {
+      let resp = ARR.sortBy(arr, propName);
+
+      expect(resp).toEqual([{
+        name: 'options'
+      }, {
+        name: 'OPTIONS'
+      }, {
+        get: 'name',
+        name: 'lalaland'
+      }, 2, 'asd', 'dsd', 4]);
+    })
+
+    it('should be return arr sort by asc', function () {
+      let resp = ARR.sortBy(arr, propName, {});
+
+      expect(resp).toEqual([2, 'asd', 'dsd', 4, {
+        get: 'name',
+        name: 'lalaland'
+      }, {
+        name: 'options'
+      }, {
+        name: 'OPTIONS'
+      }]);
     })
   })
 });
