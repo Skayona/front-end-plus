@@ -522,5 +522,29 @@ describe("Some", function () {
 
   describe('difference', function () {
     beforeEach(function () {})
+
+    it('should be return []', function () {
+      let resp = ARR.difference();
+
+      expect(resp).toEqual([]);
+    })
+
+    it('should be return [1, 2, 3]', function () {
+      let resp = ARR.difference(1, 2, 3);
+
+      expect(resp).toEqual([1, 2, 3]);
+    })
+
+    it('should be return [1, 2]', function () {
+      let resp = ARR.difference(1, [2, 3], 3, 'yep', 'yep');
+
+      expect(resp).toEqual([1, 2]);
+    })
+
+    it('should be return [1, 2]', function () {
+      let resp = ARR.difference(1, [2, 3], 3, 'yep');
+
+      expect(resp).toEqual([1, 2, 'yep']);
+    })
   })
 });
