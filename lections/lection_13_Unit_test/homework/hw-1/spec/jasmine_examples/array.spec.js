@@ -427,7 +427,7 @@ describe("Some", function () {
     })
 
     it('should be return an error', function () {
-        expect(function () {
+      expect(function () {
         ARR.startsWith(arr1, []);
       }).toThrowError('string.slice is not a function');
     })
@@ -439,6 +439,30 @@ describe("Some", function () {
     })
   })
 
+  describe('getIndex', function () {
+    beforeEach(function () {
+      el = ['two', 3];
+      parent = ['one', el, 'three'];
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.getIndex();
+      }).toThrowError('Array.prototype.indexOf called on null or undefined');
+    })
+
+    it('should be retun -1', function () {
+      let resp = ARR.getIndex(parent);
+
+      expect(resp).toEqual(-1);
+    })
+
+    it('should be retun 1', function () {
+      let resp = ARR.getIndex(parent, el);
+
+      expect(resp).toEqual(1);
+    })
+  })
   // describe('_equals', function () {
   //   beforeEach(function () {})
 
