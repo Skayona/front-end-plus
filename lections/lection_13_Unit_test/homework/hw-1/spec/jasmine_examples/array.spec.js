@@ -541,10 +541,20 @@ describe("Some", function () {
       expect(resp).toEqual([1, 2]);
     })
 
-    it('should be return [1, 2]', function () {
+    it('should be return [1, 2, "yep"]', function () {
       let resp = ARR.difference(1, [2, 3], 3, 'yep');
 
       expect(resp).toEqual([1, 2, 'yep']);
+    })
+  })
+
+  describe('fromObject', function () {
+    beforeEach(function () {})
+
+    it('should be return an error', function() {
+      expect(function () {
+        ARR.fromObject()
+      }).toThrowError('angular is not defined');
     })
   })
 });
