@@ -641,4 +641,31 @@ describe("Some", function () {
     })
 
   })
+
+  describe('pushUniq', function () {
+    beforeEach(function () {
+      item = ['two', 3];
+      arr = ['one', item, 'three'];
+    })
+
+    it('should be return an error', function () {
+      expect(function () {
+        ARR.pushUniq();
+      }).toThrowError('Array.prototype.indexOf called on null or undefined');
+    })
+
+    it('should be retun "arr.push(item)"', function () {
+      let resp = ARR.pushUniq(arr);
+
+      expect(resp).toEqual(['one', ['two', 3], 'three', undefined]);
+    })
+
+    it('should be retun "arr"', function () {
+      let resp = ARR.pushUniq(arr, item);
+
+      expect(resp).toEqual(arr);
+    })
+
+
+  })
 });
